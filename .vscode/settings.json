@@ -1,0 +1,5 @@
+{
+    "antigravity.agent.mode": "auto",
+    "antigravity.agent.terminal.autoApprove": true,
+    "antigravity.agent.fileEdit.autoApprove": true
+}
