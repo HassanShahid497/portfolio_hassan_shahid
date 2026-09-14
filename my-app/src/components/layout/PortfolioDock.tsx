@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { RESUME_DATA } from "@/lib/data";
 import { sound } from "@/lib/sound";
@@ -60,18 +61,23 @@ function XIcon({ className = "w-4 h-4" }: { className?: string }) {
 export function PortfolioDock() {
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isMuted, setIsMuted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsMuted(sound.getMuted());
 
     const sectionIds = ["contact"];
     const handleScroll = () => {
-      if (window.scrollY < 200) {
+      const scrollY = window.scrollY;
+      // Show dock only once user has scrolled past the hero section (~350px)
+      setIsVisible(scrollY > 350);
+
+      if (scrollY < 200) {
         setActiveSection("home");
         return;
       }
 
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      const scrollPosition = scrollY + window.innerHeight / 3;
       for (const id of sectionIds) {
         const el = document.getElementById(id);
         if (el) {
@@ -85,6 +91,7 @@ export function PortfolioDock() {
       }
     };
 
+    handleScroll(); // Initial check
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -112,8 +119,16 @@ export function PortfolioDock() {
   };
 
   return (
-    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-auto max-w-[95vw]">
-      <Dock
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: 45, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 45, scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 280, damping: 24 }}
+          className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-auto max-w-[95vw]"
+        >
+          <Dock
         direction="middle"
         className="bg-card/85 dark:bg-[#0b0b0e]/85 border border-border dark:border-white/[0.12] shadow-[0_12px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.8)] backdrop-blur-xl px-2.5 py-1.5 rounded-2xl h-[56px] gap-1.5 sm:gap-2"
         iconSize={38}
@@ -230,6 +245,8 @@ export function PortfolioDock() {
           <ThemeToggle className="w-full h-full border-0 bg-transparent hover:bg-transparent p-0 flex items-center justify-center text-zinc-600 dark:text-zinc-300 group-hover:text-emerald-500 transition-colors [&_svg]:size-4" />
         </DockIcon>
       </Dock>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

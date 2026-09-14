@@ -9,6 +9,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-mono);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-barlow-condensed);
+  --font-anton: var(--font-anton);
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);

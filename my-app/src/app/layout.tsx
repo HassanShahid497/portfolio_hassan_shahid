@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { Geist_Mono, JetBrains_Mono, Barlow_Condensed, Anton } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -12,6 +12,20 @@ const geistMono = Geist_Mono({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
+  subsets: ["latin"],
+  weight: ["600", "700", "800", "900"],
+  display: "swap",
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -48,7 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistMono.variable} ${jetbrainsMono.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
+      className={`${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-mono">
