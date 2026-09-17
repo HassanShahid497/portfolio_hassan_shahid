@@ -31,45 +31,79 @@ export function Navbar() {
       <div className="max-w-4xl mx-auto px-6 flex items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-bold text-foreground tracking-tight hover:text-emerald-500 transition-colors text-sm"
+          className={`font-bold tracking-tight transition-colors text-sm ${
+            scrolled
+              ? "text-foreground hover:text-emerald-500"
+              : "text-white hover:text-emerald-400 drop-shadow-sm"
+          }`}
         >
           {RESUME_DATA.profile.name}
         </button>
 
-        <nav className="flex items-center gap-4 sm:gap-5 text-muted-foreground text-xs">
+        <nav
+          className={`flex items-center gap-4 sm:gap-5 text-xs transition-colors ${
+            scrolled ? "text-muted-foreground" : "text-zinc-200"
+          }`}
+        >
           <button
             onClick={() => scrollTo("experience")}
-            className="hover:text-foreground transition-colors"
+            className={
+              scrolled
+                ? "hover:text-foreground transition-colors"
+                : "hover:text-white transition-colors drop-shadow-sm"
+            }
           >
             Experience
           </button>
           <button
             onClick={() => scrollTo("projects")}
-            className="hover:text-foreground transition-colors"
+            className={
+              scrolled
+                ? "hover:text-foreground transition-colors"
+                : "hover:text-white transition-colors drop-shadow-sm"
+            }
           >
             Projects
           </button>
           <button
             onClick={() => scrollTo("education")}
-            className="hidden sm:inline-block hover:text-foreground transition-colors"
+            className={`hidden sm:inline-block transition-colors ${
+              scrolled
+                ? "hover:text-foreground"
+                : "hover:text-white drop-shadow-sm"
+            }`}
           >
             Education
           </button>
           <button
             onClick={() => scrollTo("skills")}
-            className="hidden sm:inline-block hover:text-foreground transition-colors"
+            className={`hidden sm:inline-block transition-colors ${
+              scrolled
+                ? "hover:text-foreground"
+                : "hover:text-white drop-shadow-sm"
+            }`}
           >
             Skills
           </button>
           <button
             onClick={() => scrollTo("contact")}
-            className="px-3 py-1 bg-muted hover:bg-foreground hover:text-background text-foreground rounded transition-colors text-xs border border-border"
+            className={`px-3 py-1 rounded transition-colors text-xs border ${
+              scrolled
+                ? "bg-muted hover:bg-foreground hover:text-background text-foreground border-border"
+                : "bg-black/50 hover:bg-black/70 text-white border-white/20 backdrop-blur-md shadow-sm"
+            }`}
           >
             Contact
           </button>
 
           {/* Animated Theme Toggler */}
-          <ThemeToggle className="size-8 rounded-lg border border-border bg-card/80 hover:bg-muted text-foreground transition-colors flex items-center justify-center [&_svg]:size-3.5 cursor-pointer shadow-xs" />
+          <ThemeToggle
+            className={`size-8 rounded-lg border transition-colors flex items-center justify-center [&_svg]:size-3.5 cursor-pointer shadow-xs ${
+              scrolled
+                ? "border-border bg-card/80 hover:bg-muted text-foreground"
+                : "border-white/20 bg-black/50 hover:bg-black/70 text-white backdrop-blur-md shadow-sm"
+            }`}
+          />
         </nav>
       </div>
     </header>

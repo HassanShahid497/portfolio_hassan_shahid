@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { RESUME_DATA } from "@/lib/data";
 import { sound } from "@/lib/sound";
@@ -42,51 +41,36 @@ export function HeroParallaxSample() {
   };
 
   return (
-    <section id="hero" className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden border-b border-border bg-background pt-20 sm:pt-24 select-none">
+    <section id="hero" className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden border-b border-border bg-black pt-20 sm:pt-24 select-none">
       {/* ========================================================================= */}
-      {/* 3-LAYER IOS LOCKSCREEN DEPTH EFFECT CONTAINER                             */}
-      {/* Layer 1 (Base): Full photo with original background preserved             */}
-      {/* Layer 2 (Middle): Giant bold text "HASSAN SHAHID" behind the head          */}
-      {/* Layer 3 (Foreground): Pixel-perfect subject cutout overlay                */}
+      {/* VIDEO BACKGROUND & CENTERPIECE TYPOGRAPHY                                 */}
       {/* ========================================================================= */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
-        {/* Layer 1: Base original photograph (preserves full room background) */}
-        <div className="absolute inset-0 w-full h-full">
-          <Image
-            src="/hero-image.png"
-            alt="Hassan Shahid"
-            fill
-            priority
-            unoptimized
-            className="object-cover object-[52%_22%] sm:object-[51%_18%] scale-110 sm:scale-115 brightness-[0.78] contrast-[1.05]"
-          />
-          {/* Subtle top/bottom vignettes to ensure seamless blending and contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-        </div>
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1]"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
 
-        {/* Layer 2: Giant Bold Typography sandwiched behind the head (iOS 16 style) */}
+        {/* Ambient Dark & Vignette Overlays for contrast (never white in light mode) */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
+
+        {/* Big Bold Name Typography on Screen */}
         <div className="absolute inset-0 flex items-start justify-center pt-10 sm:pt-12 md:pt-14 lg:pt-12 z-10">
-          <h1 className="font-[family-name:var(--font-barlow-condensed)] font-black uppercase tracking-tight leading-none text-white text-[16vw] sm:text-[14vw] md:text-[12vw] lg:text-[130px] xl:text-[155px] text-center drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]">
+          <h1 className="font-[family-name:var(--font-barlow-condensed)] font-black uppercase tracking-tight leading-none text-white text-[16vw] sm:text-[14vw] md:text-[12vw] lg:text-[130px] xl:text-[155px] text-center drop-shadow-[0_10px_35px_rgba(0,0,0,0.95)]">
             Hassan Shahid
           </h1>
         </div>
 
-        {/* Layer 3: Foreground Subject Cutout (100% pixel-aligned with Layer 1) */}
-        <div className="absolute inset-0 w-full h-full z-20">
-          <Image
-            src="/hero-person.png"
-            alt=""
-            fill
-            priority
-            unoptimized
-            aria-hidden="true"
-            className="object-cover object-[52%_22%] sm:object-[51%_18%] scale-110 sm:scale-115 brightness-[0.98] contrast-[1.05]"
-          />
-        </div>
-
-        {/* Soft bottom edge gradient blend into page background */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/70 to-transparent z-25" />
+        {/* Soft bottom edge blend into page background specifically in dark mode */}
+        <div className="absolute inset-x-0 bottom-0 h-40 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-20 pointer-events-none" />
       </div>
 
       {/* ========================================================================= */}
