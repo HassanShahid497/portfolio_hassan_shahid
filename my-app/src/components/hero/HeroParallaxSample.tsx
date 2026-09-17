@@ -83,13 +83,9 @@ export function HeroParallaxSample() {
           />
         </div>
 
-        {/* Mobile Bottom HUD: Bio + Education Credential + Social Links + Action Buttons */}
+        {/* Mobile Bottom HUD: Education Credential + Social Links + Action Buttons */}
         <div className="w-full max-w-xs space-y-3 flex flex-col items-center">
-          <p className="text-xs text-zinc-300 font-sans leading-relaxed text-center drop-shadow-md">
-            Building autonomous AI workflows and resilient systems to eliminate complex, repetitive software toil.
-          </p>
-
-          {/* Education Credential (Placed below bio so visitors read name first) */}
+          {/* Education Credential */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/65 border border-white/15 backdrop-blur-md text-[11px] text-zinc-300 font-mono shadow-md">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>Software Engineering • ITU (3.67 CGPA)</span>
@@ -209,7 +205,7 @@ export function HeroParallaxSample() {
             </div>
 
             <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
-              Building AI automation and agentic workflows to streamline complex software engineering tasks with high precision.
+              Building autonomous AI workflows & resilient systems.
             </p>
 
             <div className="flex items-center gap-2.5 pt-0.5">
