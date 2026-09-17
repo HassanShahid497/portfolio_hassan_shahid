@@ -42,71 +42,59 @@ export function HeroParallaxSample() {
   };
 
   return (
-    <section id="hero" className="relative w-full min-h-[640px] border-b border-border bg-black select-none overflow-hidden">
-      {/* ========================================================================= */}
-      {/* SHARED BACKGROUND VIDEO & AMBIENT GLOW                                    */}
-      {/* ========================================================================= */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1]"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-[0.5px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70 pointer-events-none" />
-      </div>
-
+    <section id="hero" className="relative w-full overflow-hidden border-b border-border bg-black select-none">
       {/* ========================================================================= */}
       {/* MOBILE-ONLY TAILORED HERO (< sm / phones)                                 */}
       {/* ========================================================================= */}
       <div className="flex sm:hidden relative z-30 w-full min-h-[92vh] max-h-[820px] flex-col justify-between items-center text-center pt-20 pb-7 px-5">
-        {/* Mobile Header: Status Pill + Big Name + Subtitle */}
-        <div className="space-y-2 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 border border-emerald-500/30 backdrop-blur-md text-[11px] text-emerald-400 font-mono shadow-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>BS Software Engineering • ITU (3.67)</span>
-          </div>
+        {/* Mobile Background Video */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1]"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/55 backdrop-blur-[0.5px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70 pointer-events-none" />
+        </div>
 
-          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-4xl drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]">
+        {/* Mobile Header: Big Name FIRST, then Subtitle */}
+        <div className="space-y-1.5 flex flex-col items-center">
+          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-4xl sm:text-5xl drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]">
             Hassan Shahid
           </h1>
 
-          <p className="text-[11px] font-mono text-emerald-400 font-medium tracking-wider uppercase">
+          <p className="text-xs font-mono text-emerald-400 font-medium tracking-wider uppercase">
             AI Automation & Systems Engineering
           </p>
         </div>
 
-        {/* Mobile Centerpiece: High-Impact Framed Portrait */}
-        <div className="relative my-2 flex items-center justify-center">
-          <div className="w-52 h-64 relative flex items-end justify-center rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.08] via-emerald-500/[0.04] to-transparent backdrop-blur-md shadow-[0_16px_40px_rgba(0,0,0,0.8)] overflow-hidden">
-            {/* Subtle radial aura */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(16,185,129,0.15),transparent_70%)] pointer-events-none" />
-            
-            {/* Portrait Cutout */}
-            <img
-              src="/hero-person.svg"
-              alt="Hassan Shahid"
-              className="h-[92%] w-auto object-contain object-bottom select-none drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] filter contrast-[1.06]"
-            />
-
-            {/* Bottom Gradient Fade inside frame */}
-            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-          </div>
+        {/* Mobile Centerpiece: Natural Portrait Cutout (No border, no green background) */}
+        <div className="relative my-2 flex items-end justify-center h-[38vh] max-h-[300px] pointer-events-none">
+          <img
+            src="/hero-person.svg"
+            alt="Hassan Shahid"
+            className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
+          />
         </div>
 
-        {/* Mobile Bottom HUD: Bio + Social Links + Action Buttons */}
-        <div className="w-full max-w-xs space-y-3.5 flex flex-col items-center">
-          {/* Bio copy */}
+        {/* Mobile Bottom HUD: Bio + Education Credential + Social Links + Action Buttons */}
+        <div className="w-full max-w-xs space-y-3 flex flex-col items-center">
           <p className="text-xs text-zinc-300 font-sans leading-relaxed text-center drop-shadow-md">
             Building autonomous AI workflows and resilient systems to eliminate complex, repetitive software toil.
           </p>
 
-          {/* Social Icons row */}
+          {/* Education Credential (Placed below bio so visitors read name first) */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/65 border border-white/15 backdrop-blur-md text-[11px] text-zinc-300 font-mono shadow-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Software Engineering • ITU (3.67 CGPA)</span>
+          </div>
+
           <div className="flex items-center gap-2.5">
             <a
               href={RESUME_DATA.profile.twitter}
@@ -151,7 +139,6 @@ export function HeroParallaxSample() {
             </a>
           </div>
 
-          {/* Mobile Action Buttons */}
           <div className="flex items-center gap-2 w-full pt-0.5">
             <InteractiveHoverButton
               onClick={() => scrollTo("contact")}
@@ -173,38 +160,55 @@ export function HeroParallaxSample() {
       </div>
 
       {/* ========================================================================= */}
-      {/* DESKTOP / LAPTOP HERO (hidden sm:flex, h-screen min-h-[640px])             */}
+      {/* DESKTOP / LAPTOP HERO (hidden sm:flex, h-screen min-h-[640px] max-h-[1000px]) */}
       {/* ========================================================================= */}
-      <div className="hidden sm:flex relative w-full h-screen max-h-[1000px] flex-col justify-between">
-        {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
-        <div className="absolute top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
-          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap">
-            Hassan Shahid
-          </h1>
-        </div>
+      <div className="hidden sm:flex relative w-full h-screen min-h-[640px] max-h-[1000px] flex-col justify-between overflow-hidden">
+        {/* Layer 1: Background Video + Gradient Overlays + Centered Portrait & Big Name */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-end justify-center">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1]"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
 
-        {/* Layer 3: Main Cutout Portrait (z-20, in front of name, full body visible) */}
-        <div className="relative z-20 flex justify-center items-end h-[74vh] md:h-[78vh] lg:h-[80vh] max-h-[680px] pointer-events-none">
-          <img
-            src="/hero-person.svg"
-            alt="Hassan Shahid"
-            className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
-          />
-        </div>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
 
-        {/* Soft bottom edge blend into page background specifically in dark mode */}
-        <div className="absolute inset-x-0 bottom-0 h-28 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-25 pointer-events-none" />
+          {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
+          <div className="absolute top-[80px] sm:top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
+            <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap">
+              Hassan Shahid
+            </h1>
+          </div>
+
+          {/* Layer 3: Main Cutout Portrait (z-20, pinned to bottom with items-end, full body visible) */}
+          <div className="relative z-20 flex justify-center items-end h-[68vh] sm:h-[74vh] md:h-[78vh] lg:h-[80vh] max-h-[680px] pointer-events-none">
+            <img
+              src="/hero-person.svg"
+              alt="Hassan Shahid"
+              className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
+            />
+          </div>
+
+          {/* Soft bottom edge blend into page background specifically in dark mode */}
+          <div className="absolute inset-x-0 bottom-0 h-28 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-25 pointer-events-none" />
+        </div>
 
         {/* Foreground HUD: Diagonal Contrast (Upper-Left vs Bottom-Right, z-30) */}
-        <div className="absolute inset-0 z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
           {/* UPPER-MID LEFT: Status Badge + Bio Caption + Social Icons */}
-          <div className="pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-sm pointer-events-auto space-y-3 text-left">
+          <div className="pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-xs text-emerald-400 font-mono shadow-md">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>BS Software Engineering • ITU (3.67)</span>
             </div>
 
-            <p className="text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-sm">
+            <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
               Building AI automation and agentic workflows to streamline complex software engineering tasks with high precision.
             </p>
 
@@ -254,8 +258,8 @@ export function HeroParallaxSample() {
           </div>
 
           {/* BOTTOM RIGHT: Value Caption + Action Buttons */}
-          <div className="mt-auto w-full sm:max-w-sm sm:ml-auto pointer-events-auto space-y-3 text-right flex flex-col items-end">
-            <p className="text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-sm">
+          <div className="mt-auto ml-auto max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-right flex flex-col items-end">
+            <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
               Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
             </p>
 

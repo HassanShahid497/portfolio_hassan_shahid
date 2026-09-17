@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { sound } from "@/lib/sound";
 import { RESUME_DATA } from "@/lib/data";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -87,23 +86,14 @@ export function Navbar() {
           </button>
           <button
             onClick={() => scrollTo("contact")}
-            className={`px-3 py-1 rounded transition-colors text-xs border ${
+            className={`px-3.5 py-1.5 rounded-full transition-colors text-xs font-semibold border ${
               scrolled
                 ? "bg-muted hover:bg-foreground hover:text-background text-foreground border-border"
-                : "bg-black/50 hover:bg-black/70 text-white border-white/20 backdrop-blur-md shadow-sm"
+                : "bg-black/60 hover:bg-black/80 text-white border-white/20 backdrop-blur-md shadow-sm"
             }`}
           >
             Contact
           </button>
-
-          {/* Animated Theme Toggler */}
-          <ThemeToggle
-            className={`size-8 rounded-lg border transition-colors flex items-center justify-center [&_svg]:size-3.5 cursor-pointer shadow-xs ${
-              scrolled
-                ? "border-border bg-card/80 hover:bg-muted text-foreground"
-                : "border-white/20 bg-black/50 hover:bg-black/70 text-white backdrop-blur-md shadow-sm"
-            }`}
-          />
         </nav>
       </div>
     </header>
