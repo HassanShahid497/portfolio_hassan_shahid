@@ -8,6 +8,8 @@ import { KineticText } from "@/components/ui/kinetic-text";
 export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
 
   const copyText = (text: string, label: string) => {
@@ -17,12 +19,60 @@ export function ContactSection() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
-    sound.playConfirm();
-    setSubmitted(true);
-    setForm({ name: "", email: "", message: "" });
+    if (!form.name || !form.email || !form.message || loading) return;
+
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const web3FormsKey =
+        process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
+        "6e01168f-fc97-40c7-8953-8a49552c5cb3";
+
+      let res: Response;
+      if (web3FormsKey) {
+        // Direct browser submission to Web3Forms for immediate inbox delivery
+        res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: web3FormsKey,
+            name: form.name,
+            email: form.email,
+            message: form.message,
+            subject: `Portfolio Contact Inquiry from ${form.name}`,
+            from_name: "Portfolio Contact Form",
+          }),
+        });
+      } else {
+        // Fallback to internal API route
+        res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+      }
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || data.error || "Unable to send message. Please try again.");
+      }
+
+      sound.playConfirm();
+      setSubmitted(true);
+      setForm({ name: "", email: "", message: "" });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setErrorMessage(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -151,11 +201,25 @@ export function ContactSection() {
                   />
                 </div>
 
+                {errorMessage && (
+                  <div className="p-2.5 rounded bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-[11px] font-mono leading-tight">
+                    {errorMessage}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full py-2 bg-foreground text-background font-semibold rounded hover:bg-emerald-600 dark:hover:bg-emerald-500 hover:text-white dark:hover:text-black transition-colors cursor-pointer"
+                  disabled={loading}
+                  className="w-full py-2 bg-foreground text-background font-semibold rounded hover:bg-emerald-600 dark:hover:bg-emerald-500 hover:text-white dark:hover:text-black transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Send Message
+                  {loading ? (
+                    <>
+                      <span className="w-3.5 h-3.5 border-2 border-background border-t-transparent rounded-full animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <span>Send Message</span>
+                  )}
                 </button>
               </form>
             )}

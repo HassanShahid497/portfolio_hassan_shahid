@@ -20,17 +20,17 @@ export function SkillsSection() {
           />
         </div>
 
-        {/* Skills Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div className="p-5 rounded-lg bg-card border border-border space-y-3 shadow-xs">
-            <div className="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase">
+        {/* Skills Cards (All three locked in same row) */}
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-5">
+          <div className="p-3.5 sm:p-5 rounded-lg bg-card border border-border space-y-2.5 sm:space-y-3 shadow-xs">
+            <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wider">
               Languages
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {RESUME_DATA.skills.languages.map((skill, i) => (
                 <span
                   key={i}
-                  className="px-2 py-0.5 rounded bg-muted border border-border text-xs font-mono text-zinc-700 dark:text-zinc-300"
+                  className="px-1.5 sm:px-2 py-0.5 rounded bg-muted border border-border text-[10px] sm:text-xs font-mono text-zinc-700 dark:text-zinc-300"
                 >
                   {skill}
                 </span>
@@ -38,15 +38,15 @@ export function SkillsSection() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-card border border-border space-y-3 shadow-xs">
-            <div className="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase">
+          <div className="p-3.5 sm:p-5 rounded-lg bg-card border border-border space-y-2.5 sm:space-y-3 shadow-xs">
+            <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wider">
               Data & Systems
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {RESUME_DATA.skills.databases.map((skill, i) => (
                 <span
                   key={i}
-                  className="px-2 py-0.5 rounded bg-muted border border-border text-xs font-mono text-zinc-700 dark:text-zinc-300"
+                  className="px-1.5 sm:px-2 py-0.5 rounded bg-muted border border-border text-[10px] sm:text-xs font-mono text-zinc-700 dark:text-zinc-300"
                 >
                   {skill}
                 </span>
@@ -54,15 +54,15 @@ export function SkillsSection() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-card border border-border space-y-3 shadow-xs">
-            <div className="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase">
+          <div className="p-3.5 sm:p-5 rounded-lg bg-card border border-border space-y-2.5 sm:space-y-3 shadow-xs">
+            <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wider">
               AI & Automation
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {RESUME_DATA.skills.automation.map((skill, i) => (
                 <span
                   key={i}
-                  className="px-2 py-0.5 rounded bg-muted border border-border text-xs font-mono text-zinc-700 dark:text-zinc-300"
+                  className="px-1.5 sm:px-2 py-0.5 rounded bg-muted border border-border text-[10px] sm:text-xs font-mono text-zinc-700 dark:text-zinc-300"
                 >
                   {skill}
                 </span>

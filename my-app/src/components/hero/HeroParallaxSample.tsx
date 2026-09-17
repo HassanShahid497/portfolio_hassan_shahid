@@ -4,6 +4,7 @@ import React from "react";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { RESUME_DATA } from "@/lib/data";
 import { sound } from "@/lib/sound";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -157,22 +158,20 @@ export function HeroParallaxSample() {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-3 pt-0.5">
-            <button
-              type="button"
+            <InteractiveHoverButton
               onClick={() => scrollTo("contact")}
-              className="px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+              className="h-12 px-7 min-w-[165px] text-sm font-semibold bg-white text-black border border-white/40 shadow-lg shadow-black/20 flex items-center justify-center"
             >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
+              Get in Touch
+            </InteractiveHoverButton>
 
             <button
               type="button"
               onClick={() => scrollTo("projects")}
-              className="px-5 py-3 rounded-full bg-black/60 hover:bg-zinc-800 border border-white/20 text-white text-sm font-medium flex items-center gap-2 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+              className="h-12 px-7 min-w-[165px] rounded-full bg-black/70 hover:bg-zinc-800 border border-white/20 text-white text-sm font-semibold flex items-center justify-center gap-2 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-lg shadow-black/30"
             >
               <span>View Projects</span>
-              <ArrowUpRight className="w-4 h-4 text-zinc-400" />
+              <ArrowUpRight className="w-4 h-4 text-zinc-300 stroke-[2.2]" />
             </button>
           </div>
         </div>

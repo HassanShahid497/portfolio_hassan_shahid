@@ -178,3 +178,21 @@ body {
     cursor: text !important;
   }
 }
+
+/* Skew Cards Custom Keyframes & Utilities */
+@keyframes blob {
+  0%, 100% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translate(-10px);
+  }
+}
+
+.animate-blob {
+  animation: blob 2s ease-in-out infinite;
+}
+
+.animation-delay-1000 {
+  animation-delay: -1s;
+}

@@ -1,15 +1,11 @@
 "use client";
 
-import ArrowFillButton from "@/components/ui/arrow-fill-button";
+import React from "react";
+import SkewCards from "@/components/ui/gradient-card-showcase";
 
-export default function ArrowFillButtonDemo() {
-  return (
-    <div className="flex min-h-64 w-full items-center justify-center p-12">
-      <ArrowFillButton
-        btnText="Hover me"
-        href="https://vault.hyperiux.com"
-        onClick={(event) => event.preventDefault()}
-      />
-    </div>
-  );
-}
+const DemoOne = () => {
+  return <SkewCards />;
+};
+
+export { DemoOne };
+export default DemoOne;
