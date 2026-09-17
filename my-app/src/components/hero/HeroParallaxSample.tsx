@@ -42,114 +42,149 @@ export function HeroParallaxSample() {
   };
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden border-b border-border bg-black select-none">
+    <section id="hero" className="relative w-full overflow-hidden border-b border-border bg-white dark:bg-black select-none transition-colors duration-500">
       {/* ========================================================================= */}
       {/* MOBILE-ONLY TAILORED HERO (< sm / phones)                                 */}
       {/* ========================================================================= */}
-      <div className="flex sm:hidden relative z-30 w-full min-h-[92vh] max-h-[820px] flex-col justify-between items-center text-center pt-20 pb-7 px-5">
-        {/* Mobile Background Video */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+      <div className="flex sm:hidden relative z-30 w-full min-h-screen flex-col justify-between pt-20 pb-7 px-5 overflow-hidden bg-white dark:bg-black select-none transition-colors duration-500">
+        {/* Layer 0: Background Animated Videos & Ambient Overlays (strictly BEHIND the image) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+          {/* Light Mode Video Background (hero-video-light.mp4) */}
           <video
             autoPlay
             loop
             muted
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1]"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.98] contrast-[1.05] dark:opacity-0 opacity-100 transition-opacity duration-700 ease-in-out"
+          >
+            <source src="/hero-video-light.mp4" type="video/mp4" />
+          </video>
+
+          {/* Dark Mode Video Background (hero-video.mp4) */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1] dark:opacity-100 opacity-0 transition-opacity duration-700 ease-in-out"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-black/55 backdrop-blur-[0.5px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70 pointer-events-none" />
+
+          {/* Subtle Ambient Video Tint */}
+          <div className="absolute inset-0 bg-white/20 dark:bg-black/35 pointer-events-none transition-colors duration-500" />
+
+          {/* Soft Left Scrim for Text Contrast */}
+          <div className="absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-white via-white/85 to-transparent dark:from-black dark:via-black/85 dark:to-transparent pointer-events-none transition-colors duration-500" />
+
+          {/* Soft Bottom Scrim for Buttons */}
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/85 to-transparent dark:from-black dark:via-black/85 to-transparent pointer-events-none transition-colors duration-500" />
         </div>
 
-        {/* Mobile Header: Big Name FIRST, then Subtitle */}
-        <div className="space-y-1.5 flex flex-col items-center">
-          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-4xl sm:text-5xl drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]">
-            Hassan Shahid
-          </h1>
-
-          <p className="text-xs font-mono text-emerald-400 font-medium tracking-wider uppercase">
-            AI Automation & Systems Engineering
-          </p>
-        </div>
-
-        {/* Mobile Centerpiece: Natural Portrait Cutout (No border, no green background) */}
-        <div className="relative my-2 flex items-end justify-center h-[38vh] max-h-[300px] pointer-events-none">
+        {/* Layer 1: Main Cutout Portrait SVG (IN FRONT of background, strictly NOT inverted, half face crop) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-10 flex items-end justify-end">
           <img
             src="/hero-person.svg"
             alt="Hassan Shahid"
-            className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
+            className="h-[66vh] max-h-[550px] w-auto object-contain object-bottom select-none translate-x-[64%] xs:translate-x-[24%]  scale-[1.4] origin-bottom-right drop-shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none"
           />
         </div>
 
-        {/* Mobile Bottom HUD: Education Credential + Social Links + Action Buttons */}
-        <div className="w-full max-w-xs space-y-3 flex flex-col items-center">
-          {/* Education Credential */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/65 border border-white/15 backdrop-blur-md text-[11px] text-zinc-300 font-mono shadow-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Software Engineering • ITU (3.67 CGPA)</span>
+        {/* Layer 2: Foreground Content (z-20) */}
+        <div className="relative z-20 flex flex-col justify-between h-full min-h-[calc(100vh-110px)] w-full pointer-events-none">
+          {/* Top Header: Stacked Giant Name Typography (Razor-sharp, no blur filter) */}
+          <div className="w-full text-left pt-2 pointer-events-auto">
+            <h1 className="font-pixelta uppercase tracking-wide leading-[0.88] text-zinc-950 dark:text-white text-[18vw] select-text">
+              HASSAN
+              <br />
+              SHAHID
+            </h1>
           </div>
 
-          <div className="flex items-center gap-2.5">
-            <a
-              href={RESUME_DATA.profile.twitter}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => sound.playClick(1000)}
-              aria-label="Twitter / X"
-              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
-            >
-              <XIcon className="w-3.5 h-3.5" />
-            </a>
+          {/* Middle-Left Content HUD: Credential Pill + Statement + Value Prop + Socials */}
+          <div className="w-full max-w-[215px] space-y-3.5 text-left pt-1 pb-4 pointer-events-auto">
+            {/* Education Credential Pill */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/85 dark:bg-black/75 border border-black/10 dark:border-white/20 backdrop-blur-md text-[10.5px] text-zinc-800 dark:text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-md w-fit transition-colors duration-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse shrink-0" />
+              <span className="truncate">BS Software Engineering-ITU (3.67)</span>
+            </div>
 
-            <a
-              href={RESUME_DATA.profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => sound.playClick(1000)}
-              aria-label="LinkedIn"
-              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
-            >
-              <LinkedinIcon className="w-3.5 h-3.5" />
-            </a>
+            {/* Primary Headline */}
+            <h2 className="text-[15px] xs:text-[16px] font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-bold text-zinc-950 dark:text-white leading-snug tracking-tight drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors duration-500">
+              Building autonomous AI workflows &amp; resilient systems.
+            </h2>
 
-            <a
-              href={RESUME_DATA.profile.github}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => sound.playClick(1000)}
-              aria-label="GitHub"
-              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
-            >
-              <GithubIcon className="w-3.5 h-3.5" />
-            </a>
+            {/* Secondary Description */}
+            <p className="text-[11px] xs:text-[11.5px] text-zinc-700 dark:text-zinc-300/90 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-normal leading-relaxed drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors duration-500">
+              Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
+            </p>
 
-            <a
-              href={`mailto:${RESUME_DATA.profile.email}`}
-              onClick={() => sound.playClick(1000)}
-              aria-label="Email"
-              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
-            >
-              <Mail className="w-3.5 h-3.5" />
-            </a>
+            {/* Social Links Row */}
+            <div className="flex items-center gap-2 pt-0.5">
+              <a
+                href={RESUME_DATA.profile.twitter}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => sound.playClick(1000)}
+                aria-label="Twitter / X"
+                className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <XIcon className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={RESUME_DATA.profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => sound.playClick(1000)}
+                aria-label="LinkedIn"
+                className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <LinkedinIcon className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={RESUME_DATA.profile.github}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => sound.playClick(1000)}
+                aria-label="GitHub"
+                className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <GithubIcon className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={`mailto:${RESUME_DATA.profile.email}`}
+                onClick={() => sound.playClick(1000)}
+                aria-label="Email"
+                className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <Mail className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 w-full pt-0.5">
-            <InteractiveHoverButton
+          {/* Bottom Action Buttons: Side-by-side Dual Pills */}
+          <div className="w-full flex items-center gap-2.5 pt-1 pb-1 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] pointer-events-auto">
+            <button
+              type="button"
               onClick={() => scrollTo("contact")}
-              className="h-11 px-4 flex-1 text-xs font-semibold bg-white text-black border border-white/40 shadow-lg shadow-black/20 flex items-center justify-center"
+              className="h-11 px-3.5 flex-1 rounded-full bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-100 dark:text-black text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-black/20 dark:shadow-black/40 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
             >
-              Get in Touch
-            </InteractiveHoverButton>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+              <span>Get in Touch</span>
+            </button>
 
             <button
               type="button"
               onClick={() => scrollTo("projects")}
-              className="h-11 px-4 flex-1 rounded-full bg-black/75 hover:bg-zinc-800 border border-white/20 text-white text-xs font-semibold flex items-center justify-center gap-1.5 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-lg shadow-black/30"
+              className="h-11 px-3.5 flex-1 rounded-full bg-white/85 hover:bg-white border border-black/15 text-zinc-950 dark:bg-black/80 dark:hover:bg-zinc-800 dark:border-white/20 dark:text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-lg shadow-black/10 dark:shadow-black/40 whitespace-nowrap"
             >
               <span>View Projects</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-300 stroke-[2.2]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-300 stroke-[2.2]" />
             </button>
           </div>
         </div>
@@ -161,23 +196,37 @@ export function HeroParallaxSample() {
       <div className="hidden sm:flex relative w-full h-screen min-h-[640px] max-h-[1000px] flex-col justify-between overflow-hidden">
         {/* Layer 1: Background Video + Gradient Overlays + Centered Portrait & Big Name */}
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-end justify-center">
+          {/* Light Mode Video Background (hero-video-light.mp4) */}
           <video
             autoPlay
             loop
             muted
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1]"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.98] contrast-[1.05] dark:opacity-0 opacity-100 transition-opacity duration-700 ease-in-out"
+          >
+            <source src="/hero-video-light.mp4" type="video/mp4" />
+          </video>
+
+          {/* Dark Mode Video Background (hero-video.mp4) */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1] dark:opacity-100 opacity-0 transition-opacity duration-700 ease-in-out"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
           </video>
 
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
+          {/* Ambient Overlays: clean & light in light mode, deep & contrasty in dark mode */}
+          <div className="absolute inset-0 bg-white/5 dark:bg-black/40 backdrop-blur-[0.5px] transition-colors duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-transparent to-transparent dark:from-black/50 dark:via-transparent dark:to-black/60 pointer-events-none transition-colors duration-500" />
 
           {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
           <div className="absolute top-[80px] sm:top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
-            <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap">
+            <h1 className="font-pixelta tracking-wider uppercase leading-none text-zinc-950 dark:text-white text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_4px_18px_rgba(255,255,255,0.8)] dark:drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap transition-colors duration-500">
               Hassan Shahid
             </h1>
           </div>
@@ -187,7 +236,7 @@ export function HeroParallaxSample() {
             <img
               src="/hero-person.svg"
               alt="Hassan Shahid"
-              className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
+              className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_15px_35px_rgba(0,0,0,0.4)] dark:drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
             />
           </div>
 
@@ -199,13 +248,13 @@ export function HeroParallaxSample() {
         <div className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
           {/* UPPER-MID LEFT: Status Badge + Bio Caption + Social Icons */}
           <div className="pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-xs text-emerald-400 font-mono shadow-md">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-black/60 border border-zinc-300/80 dark:border-white/15 backdrop-blur-md text-xs text-emerald-600 dark:text-emerald-400 font-mono shadow-md transition-colors">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>BS Software Engineering • ITU (3.67)</span>
             </div>
 
-            <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
-              Building autonomous AI workflows & resilient systems.
+            <p className="text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)] dark:drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm transition-colors">
+              Hey, I&apos;m Hassan—a software engineering student at ITU obsessed with building autonomous AI workflows and resilient systems that turn complex ideas into effortless automation.
             </p>
 
             <div className="flex items-center gap-2.5 pt-0.5">
@@ -215,7 +264,7 @@ export function HeroParallaxSample() {
                 rel="noreferrer"
                 onClick={() => sound.playClick(1000)}
                 aria-label="Twitter / X"
-                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+                className="w-9 h-9 rounded-xl bg-white/85 dark:bg-black/60 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-white/20 hover:border-zinc-400 dark:hover:border-white/40 text-zinc-900 dark:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
               >
                 <XIcon className="w-3.5 h-3.5" />
               </a>
@@ -226,7 +275,7 @@ export function HeroParallaxSample() {
                 rel="noreferrer"
                 onClick={() => sound.playClick(1000)}
                 aria-label="LinkedIn"
-                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+                className="w-9 h-9 rounded-xl bg-white/85 dark:bg-black/60 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-white/20 hover:border-zinc-400 dark:hover:border-white/40 text-zinc-900 dark:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
               >
                 <LinkedinIcon className="w-3.5 h-3.5" />
               </a>
@@ -237,7 +286,7 @@ export function HeroParallaxSample() {
                 rel="noreferrer"
                 onClick={() => sound.playClick(1000)}
                 aria-label="GitHub"
-                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+                className="w-9 h-9 rounded-xl bg-white/85 dark:bg-black/60 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-white/20 hover:border-zinc-400 dark:hover:border-white/40 text-zinc-900 dark:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
               >
                 <GithubIcon className="w-3.5 h-3.5" />
               </a>
@@ -246,7 +295,7 @@ export function HeroParallaxSample() {
                 href={`mailto:${RESUME_DATA.profile.email}`}
                 onClick={() => sound.playClick(1000)}
                 aria-label="Email"
-                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+                className="w-9 h-9 rounded-xl bg-white/85 dark:bg-black/60 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-white/20 hover:border-zinc-400 dark:hover:border-white/40 text-zinc-900 dark:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
               >
                 <Mail className="w-3.5 h-3.5" />
               </a>
@@ -255,14 +304,14 @@ export function HeroParallaxSample() {
 
           {/* BOTTOM RIGHT: Value Caption + Action Buttons */}
           <div className="mt-auto ml-auto max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-right flex flex-col items-end">
-            <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
+            <p className="text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)] dark:drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm transition-colors">
               Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
             </p>
 
             <div className="flex flex-row items-center gap-3 pt-0.5 w-auto justify-end">
               <InteractiveHoverButton
                 onClick={() => scrollTo("contact")}
-                className="h-12 px-7 min-w-[165px] text-sm font-semibold bg-white text-black border border-white/40 shadow-lg shadow-black/20 flex items-center justify-center"
+                className="h-12 px-7 min-w-[165px] text-sm font-semibold bg-zinc-950 text-white dark:bg-white dark:text-black border border-zinc-800 dark:border-white/40 shadow-lg shadow-black/20 flex items-center justify-center cursor-pointer"
               >
                 Get in Touch
               </InteractiveHoverButton>
@@ -270,10 +319,10 @@ export function HeroParallaxSample() {
               <button
                 type="button"
                 onClick={() => scrollTo("projects")}
-                className="h-12 px-7 min-w-[165px] rounded-full bg-black/70 hover:bg-zinc-800 border border-white/20 text-white text-sm font-semibold flex items-center justify-center gap-2 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-lg shadow-black/30"
+                className="h-12 px-7 min-w-[165px] rounded-full bg-white/85 dark:bg-black/70 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-300 dark:border-white/20 text-zinc-900 dark:text-white text-sm font-semibold flex items-center justify-center gap-2 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-lg shadow-black/10 dark:shadow-black/30"
               >
                 <span>View Projects</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-300 stroke-[2.2]" />
+                <ArrowUpRight className="w-4 h-4 text-zinc-700 dark:text-zinc-300 stroke-[2.2]" />
               </button>
             </div>
           </div>

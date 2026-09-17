@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { sound } from "@/lib/sound";
 import { RESUME_DATA } from "@/lib/data";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,7 +34,7 @@ export function Navbar() {
           className={`font-bold tracking-tight transition-colors text-sm ${
             scrolled
               ? "text-foreground hover:text-emerald-500"
-              : "text-white hover:text-emerald-400 drop-shadow-sm"
+              : "text-zinc-900 dark:text-white hover:text-emerald-500 dark:hover:text-emerald-400 drop-shadow-xs dark:drop-shadow-sm"
           }`}
         >
           {RESUME_DATA.profile.name}
@@ -41,7 +42,7 @@ export function Navbar() {
 
         <nav
           className={`flex items-center gap-4 sm:gap-5 text-xs transition-colors ${
-            scrolled ? "text-muted-foreground" : "text-zinc-200"
+            scrolled ? "text-muted-foreground" : "text-zinc-700 dark:text-zinc-200"
           }`}
         >
           <button
@@ -49,7 +50,7 @@ export function Navbar() {
             className={`hidden sm:inline-block transition-colors ${
               scrolled
                 ? "hover:text-foreground"
-                : "hover:text-white drop-shadow-sm"
+                : "hover:text-zinc-950 dark:hover:text-white drop-shadow-xs dark:drop-shadow-sm"
             }`}
           >
             Experience
@@ -59,7 +60,7 @@ export function Navbar() {
             className={`hidden sm:inline-block transition-colors ${
               scrolled
                 ? "hover:text-foreground"
-                : "hover:text-white drop-shadow-sm"
+                : "hover:text-zinc-950 dark:hover:text-white drop-shadow-xs dark:drop-shadow-sm"
             }`}
           >
             Projects
@@ -69,7 +70,7 @@ export function Navbar() {
             className={`hidden sm:inline-block transition-colors ${
               scrolled
                 ? "hover:text-foreground"
-                : "hover:text-white drop-shadow-sm"
+                : "hover:text-zinc-950 dark:hover:text-white drop-shadow-xs dark:drop-shadow-sm"
             }`}
           >
             Education
@@ -79,7 +80,7 @@ export function Navbar() {
             className={`hidden sm:inline-block transition-colors ${
               scrolled
                 ? "hover:text-foreground"
-                : "hover:text-white drop-shadow-sm"
+                : "hover:text-zinc-950 dark:hover:text-white drop-shadow-xs dark:drop-shadow-sm"
             }`}
           >
             Skills
@@ -89,11 +90,20 @@ export function Navbar() {
             className={`px-3.5 py-1.5 rounded-full transition-colors text-xs font-semibold border ${
               scrolled
                 ? "bg-muted hover:bg-foreground hover:text-background text-foreground border-border"
-                : "bg-black/60 hover:bg-black/80 text-white border-white/20 backdrop-blur-md shadow-sm"
+                : "bg-zinc-900/90 dark:bg-black/60 hover:bg-black dark:hover:bg-black/80 text-white border-zinc-700/80 dark:border-white/20 backdrop-blur-md shadow-sm"
             }`}
           >
             Contact
           </button>
+
+          {/* Animated Theme Toggler */}
+          <ThemeToggle
+            className={`size-8 rounded-full border transition-all flex items-center justify-center [&_svg]:size-3.5 cursor-pointer shadow-xs ${
+              scrolled
+                ? "border-border bg-card/80 hover:bg-muted text-foreground"
+                : "border-zinc-300/80 dark:border-white/20 bg-white/80 dark:bg-black/60 hover:bg-zinc-100 dark:hover:bg-black/80 text-zinc-800 dark:text-white backdrop-blur-md shadow-sm"
+            }`}
+          />
         </nav>
       </div>
     </header>
