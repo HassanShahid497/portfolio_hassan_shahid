@@ -1,7 +1,6 @@
 import { removeBackground } from "@imgly/background-removal-node";
 import fs from "fs";
 import path from "path";
-import { pathToFileURL } from "url";
 
 async function main() {
   console.log("Starting background removal...");

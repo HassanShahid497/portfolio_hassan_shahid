@@ -97,7 +97,7 @@ export function SmoothCursor({
 }: SmoothCursorProps) {
   const lastMousePos = useRef<Position>({ x: 0, y: 0 })
   const velocity = useRef<Position>({ x: 0, y: 0 })
-  const lastUpdateTime = useRef(Date.now())
+  const lastUpdateTime = useRef(0)
   const previousAngle = useRef(0)
   const accumulatedRotation = useRef(0)
   const [isEnabled, setIsEnabled] = useState(false)
@@ -148,7 +148,7 @@ export function SmoothCursor({
 
     const updateVelocity = (currentPos: Position) => {
       const currentTime = Date.now()
-      const deltaTime = currentTime - lastUpdateTime.current
+      const deltaTime = lastUpdateTime.current > 0 ? currentTime - lastUpdateTime.current : 16
 
       if (deltaTime > 0) {
         velocity.current = {

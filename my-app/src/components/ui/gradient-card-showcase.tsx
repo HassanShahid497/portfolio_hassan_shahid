@@ -162,7 +162,7 @@ export default function SkewCards({
                       href={link || "#"}
                       target={link && link.startsWith("http") ? "_blank" : undefined}
                       rel={link && link.startsWith("http") ? "noopener noreferrer" : undefined}
-                      onClick={(e) => {
+                      onClick={() => {
                         sound.playClick(1100);
                         if (onActionClick) {
                           onActionClick(item, idx);
