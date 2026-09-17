@@ -42,12 +42,11 @@ export function HeroParallaxSample() {
   };
 
   return (
-    <section id="hero" className="relative w-full h-[95vh] sm:h-screen min-h-[640px] max-h-[1000px] flex flex-col justify-between overflow-hidden border-b border-border bg-black select-none">
+    <section id="hero" className="relative w-full min-h-[640px] border-b border-border bg-black select-none overflow-hidden">
       {/* ========================================================================= */}
-      {/* VIDEO BACKGROUND & CENTERPIECE TYPOGRAPHY                                 */}
+      {/* SHARED BACKGROUND VIDEO & AMBIENT GLOW                                    */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-end justify-center">
-        {/* Background Video */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
         <video
           autoPlay
           loop
@@ -58,60 +57,64 @@ export function HeroParallaxSample() {
         >
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
-
-        {/* Ambient Dark & Vignette Overlays for contrast (never white in light mode) */}
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
-
-        {/* ========================================================================= */}
-        {/* 3-LAYER DEPTH EFFECT: VIDEO -> GIANT NAME -> SUBJECT PORTRAIT             */}
-        {/* ========================================================================= */}
-        {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
-        <div className="absolute top-[80px] sm:top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
-          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap">
-            Hassan Shahid
-          </h1>
-        </div>
-
-        {/* Layer 3: Main Cutout Portrait (z-20, in front of name, full body visible) */}
-        <div className="relative z-20 flex justify-center items-end h-[68vh] sm:h-[74vh] md:h-[78vh] lg:h-[80vh] max-h-[680px] pointer-events-none">
-          <img
-            src="/hero-person.svg"
-            alt="Hassan Shahid"
-            className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
-          />
-        </div>
-
-        {/* Soft bottom edge blend into page background specifically in dark mode */}
-        <div className="absolute inset-x-0 bottom-0 h-28 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-25 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-[0.5px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70 pointer-events-none" />
       </div>
 
       {/* ========================================================================= */}
-      {/* FOREGROUND HUD: DIAGONAL CONTRAST (UPPER-LEFT VS BOTTOM-RIGHT, z-30)      */}
+      {/* MOBILE-ONLY TAILORED HERO (< sm / phones)                                 */}
       {/* ========================================================================= */}
-      <div className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
-        {/* UPPER-MID LEFT: Status Badge + Bio Caption + Social Icons (Below the name, not at the bottom) */}
-        <div className="pt-[200px] sm:pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left">
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-xs text-emerald-400 font-mono shadow-md">
+      <div className="flex sm:hidden relative z-30 w-full min-h-[92vh] max-h-[820px] flex-col justify-between items-center text-center pt-20 pb-7 px-5">
+        {/* Mobile Header: Status Pill + Big Name + Subtitle */}
+        <div className="space-y-2 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 border border-emerald-500/30 backdrop-blur-md text-[11px] text-emerald-400 font-mono shadow-md">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>BS Software Engineering • ITU (CGPA 3.67)</span>
+            <span>BS Software Engineering • ITU (3.67)</span>
           </div>
 
-          {/* Clean Subtext */}
-          <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
-            Building AI automation and agentic workflows to streamline complex software engineering tasks with high precision.
+          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-4xl drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)]">
+            Hassan Shahid
+          </h1>
+
+          <p className="text-[11px] font-mono text-emerald-400 font-medium tracking-wider uppercase">
+            AI Automation & Systems Engineering
+          </p>
+        </div>
+
+        {/* Mobile Centerpiece: High-Impact Framed Portrait */}
+        <div className="relative my-2 flex items-center justify-center">
+          <div className="w-52 h-64 relative flex items-end justify-center rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.08] via-emerald-500/[0.04] to-transparent backdrop-blur-md shadow-[0_16px_40px_rgba(0,0,0,0.8)] overflow-hidden">
+            {/* Subtle radial aura */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(16,185,129,0.15),transparent_70%)] pointer-events-none" />
+            
+            {/* Portrait Cutout */}
+            <img
+              src="/hero-person.svg"
+              alt="Hassan Shahid"
+              className="h-[92%] w-auto object-contain object-bottom select-none drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] filter contrast-[1.06]"
+            />
+
+            {/* Bottom Gradient Fade inside frame */}
+            <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Mobile Bottom HUD: Bio + Social Links + Action Buttons */}
+        <div className="w-full max-w-xs space-y-3.5 flex flex-col items-center">
+          {/* Bio copy */}
+          <p className="text-xs text-zinc-300 font-sans leading-relaxed text-center drop-shadow-md">
+            Building autonomous AI workflows and resilient systems to eliminate complex, repetitive software toil.
           </p>
 
-          {/* Social Icons */}
-          <div className="flex items-center gap-2.5 pt-0.5">
+          {/* Social Icons row */}
+          <div className="flex items-center gap-2.5">
             <a
               href={RESUME_DATA.profile.twitter}
               target="_blank"
               rel="noreferrer"
               onClick={() => sound.playClick(1000)}
               aria-label="Twitter / X"
-              className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <XIcon className="w-3.5 h-3.5" />
             </a>
@@ -122,7 +125,7 @@ export function HeroParallaxSample() {
               rel="noreferrer"
               onClick={() => sound.playClick(1000)}
               aria-label="LinkedIn"
-              className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <LinkedinIcon className="w-3.5 h-3.5" />
             </a>
@@ -133,7 +136,7 @@ export function HeroParallaxSample() {
               rel="noreferrer"
               onClick={() => sound.playClick(1000)}
               aria-label="GitHub"
-              className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <GithubIcon className="w-3.5 h-3.5" />
             </a>
@@ -142,25 +145,17 @@ export function HeroParallaxSample() {
               href={`mailto:${RESUME_DATA.profile.email}`}
               onClick={() => sound.playClick(1000)}
               aria-label="Email"
-              className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              className="w-9 h-9 rounded-xl bg-black/70 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <Mail className="w-3.5 h-3.5" />
             </a>
           </div>
-        </div>
 
-        {/* BOTTOM RIGHT: Value Caption + Action Buttons (Diagonal Contrast) */}
-        <div className="mt-auto ml-auto max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left md:text-right flex flex-col md:items-end">
-          {/* Clean Subtext */}
-          <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
-            Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-0.5">
+          {/* Mobile Action Buttons */}
+          <div className="flex items-center gap-2 w-full pt-0.5">
             <InteractiveHoverButton
               onClick={() => scrollTo("contact")}
-              className="h-12 px-7 min-w-[165px] text-sm font-semibold bg-white text-black border border-white/40 shadow-lg shadow-black/20 flex items-center justify-center"
+              className="h-11 px-4 flex-1 text-xs font-semibold bg-white text-black border border-white/40 shadow-lg shadow-black/20 flex items-center justify-center"
             >
               Get in Touch
             </InteractiveHoverButton>
@@ -168,11 +163,119 @@ export function HeroParallaxSample() {
             <button
               type="button"
               onClick={() => scrollTo("projects")}
-              className="h-12 px-7 min-w-[165px] rounded-full bg-black/70 hover:bg-zinc-800 border border-white/20 text-white text-sm font-semibold flex items-center justify-center gap-2 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-lg shadow-black/30"
+              className="h-11 px-4 flex-1 rounded-full bg-black/75 hover:bg-zinc-800 border border-white/20 text-white text-xs font-semibold flex items-center justify-center gap-1.5 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-lg shadow-black/30"
             >
               <span>View Projects</span>
-              <ArrowUpRight className="w-4 h-4 text-zinc-300 stroke-[2.2]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-zinc-300 stroke-[2.2]" />
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* DESKTOP / LAPTOP HERO (hidden sm:flex, h-screen min-h-[640px])             */}
+      {/* ========================================================================= */}
+      <div className="hidden sm:flex relative w-full h-screen max-h-[1000px] flex-col justify-between">
+        {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
+        <div className="absolute top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
+          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap">
+            Hassan Shahid
+          </h1>
+        </div>
+
+        {/* Layer 3: Main Cutout Portrait (z-20, in front of name, full body visible) */}
+        <div className="relative z-20 flex justify-center items-end h-[74vh] md:h-[78vh] lg:h-[80vh] max-h-[680px] pointer-events-none">
+          <img
+            src="/hero-person.svg"
+            alt="Hassan Shahid"
+            className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
+          />
+        </div>
+
+        {/* Soft bottom edge blend into page background specifically in dark mode */}
+        <div className="absolute inset-x-0 bottom-0 h-28 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-25 pointer-events-none" />
+
+        {/* Foreground HUD: Diagonal Contrast (Upper-Left vs Bottom-Right, z-30) */}
+        <div className="absolute inset-0 z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
+          {/* UPPER-MID LEFT: Status Badge + Bio Caption + Social Icons */}
+          <div className="pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-sm pointer-events-auto space-y-3 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-xs text-emerald-400 font-mono shadow-md">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>BS Software Engineering • ITU (3.67)</span>
+            </div>
+
+            <p className="text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-sm">
+              Building AI automation and agentic workflows to streamline complex software engineering tasks with high precision.
+            </p>
+
+            <div className="flex items-center gap-2.5 pt-0.5">
+              <a
+                href={RESUME_DATA.profile.twitter}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => sound.playClick(1000)}
+                aria-label="Twitter / X"
+                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <XIcon className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={RESUME_DATA.profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => sound.playClick(1000)}
+                aria-label="LinkedIn"
+                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <LinkedinIcon className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={RESUME_DATA.profile.github}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => sound.playClick(1000)}
+                aria-label="GitHub"
+                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <GithubIcon className="w-3.5 h-3.5" />
+              </a>
+
+              <a
+                href={`mailto:${RESUME_DATA.profile.email}`}
+                onClick={() => sound.playClick(1000)}
+                aria-label="Email"
+                className="w-9 h-9 rounded-xl bg-black/60 hover:bg-zinc-800 border border-white/20 hover:border-white/40 text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-md backdrop-blur-md"
+              >
+                <Mail className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* BOTTOM RIGHT: Value Caption + Action Buttons */}
+          <div className="mt-auto w-full sm:max-w-sm sm:ml-auto pointer-events-auto space-y-3 text-right flex flex-col items-end">
+            <p className="text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-sm">
+              Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
+            </p>
+
+            <div className="flex flex-row items-center gap-3 pt-0.5 w-auto justify-end">
+              <InteractiveHoverButton
+                onClick={() => scrollTo("contact")}
+                className="h-12 px-7 min-w-[165px] text-sm font-semibold bg-white text-black border border-white/40 shadow-lg shadow-black/20 flex items-center justify-center"
+              >
+                Get in Touch
+              </InteractiveHoverButton>
+
+              <button
+                type="button"
+                onClick={() => scrollTo("projects")}
+                className="h-12 px-7 min-w-[165px] rounded-full bg-black/70 hover:bg-zinc-800 border border-white/20 text-white text-sm font-semibold flex items-center justify-center gap-2 backdrop-blur-md transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-lg shadow-black/30"
+              >
+                <span>View Projects</span>
+                <ArrowUpRight className="w-4 h-4 text-zinc-300 stroke-[2.2]" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

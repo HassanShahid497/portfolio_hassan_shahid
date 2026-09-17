@@ -120,7 +120,8 @@ export function SmoothCursor({
     const mediaQuery = window.matchMedia(DESKTOP_POINTER_QUERY)
 
     const updateEnabled = () => {
-      const nextIsEnabled = mediaQuery.matches
+      const isDesktopWidth = typeof window !== "undefined" && window.innerWidth >= 768
+      const nextIsEnabled = mediaQuery.matches && isDesktopWidth
       setIsEnabled(nextIsEnabled)
 
       if (!nextIsEnabled) {
@@ -130,9 +131,11 @@ export function SmoothCursor({
 
     updateEnabled()
     mediaQuery.addEventListener("change", updateEnabled)
+    window.addEventListener("resize", updateEnabled)
 
     return () => {
       mediaQuery.removeEventListener("change", updateEnabled)
+      window.removeEventListener("resize", updateEnabled)
     }
   }, [])
 

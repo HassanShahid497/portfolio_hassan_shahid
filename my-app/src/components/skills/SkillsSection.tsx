@@ -20,8 +20,8 @@ export function SkillsSection() {
           />
         </div>
 
-        {/* Skills Cards (All three locked in same row) */}
-        <div className="grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-5">
+        {/* Skills Cards (1 column on mobile, 3 in same row on desktop) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 md:gap-5">
           <div className="p-3.5 sm:p-5 rounded-lg bg-card border border-border space-y-2.5 sm:space-y-3 shadow-xs">
             <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wider">
               Languages

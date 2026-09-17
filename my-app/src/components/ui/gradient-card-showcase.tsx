@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef } from "react";
 import { sound } from "@/lib/sound";
 
 export interface SkewCardItem {
@@ -53,14 +53,38 @@ export default function SkewCards({
   onActionClick,
 }: SkewCardsProps) {
   const cardList = items && items.length > 0 ? items : defaultCards;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const scrollLeft = el.scrollLeft;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll <= 0) return;
+    const index = Math.round((scrollLeft / maxScroll) * (cardList.length - 1));
+    setActiveIndex(Math.min(Math.max(0, index), cardList.length - 1));
+  };
 
   return (
     <>
       <div
-        className={`flex justify-center items-center py-6 ${className}`}
+        className={`flex flex-col justify-center items-center py-4 sm:py-6 w-full ${className}`}
       >
+        {/* Mobile Swipe Hint with Counter */}
+        <div className="flex sm:hidden items-center justify-between w-full px-5 text-[11px] font-mono text-muted-foreground mb-1.5">
+          <span className="flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Swipe projects
+          </span>
+          <span className="text-zinc-400 font-bold">
+            {activeIndex + 1} / {cardList.length}
+          </span>
+        </div>
+
         <div
-          className={`flex justify-center items-center flex-nowrap overflow-x-auto sm:overflow-visible max-w-full px-2 py-4 ${containerClassName}`}
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className={`flex items-center overflow-x-auto snap-x snap-mandatory sm:overflow-visible max-w-full px-4 sm:px-2 py-3 sm:py-4 gap-3 sm:gap-0 justify-start sm:justify-center w-full no-scrollbar ${containerClassName}`}
         >
           {cardList.map((item, idx) => {
             const {
@@ -78,17 +102,17 @@ export default function SkewCards({
             return (
               <div
                 key={idx}
-                className="group relative w-[265px] sm:w-[280px] lg:w-[290px] h-[395px] m-[20px_8px] sm:m-[25px_10px] md:m-[25px_12px] transition-all duration-500 shrink-0"
+                className="group relative w-[82vw] max-w-[285px] sm:w-[280px] lg:w-[290px] h-[395px] m-[10px_4px] sm:m-[25px_10px] md:m-[25px_12px] transition-all duration-500 shrink-0 snap-center"
               >
-                {/* Skewed gradient panels */}
+                {/* Skewed gradient panels (straight on mobile, skewed on desktop) */}
                 <span
-                  className="absolute top-0 left-[35px] w-[52%] h-full rounded-lg transform skew-x-[14deg] transition-all duration-500 group-hover:skew-x-0 group-hover:left-[12px] group-hover:w-[calc(100%-50px)]"
+                  className="absolute top-0 left-[16px] sm:left-[35px] w-[calc(100%-32px)] sm:w-[52%] h-full rounded-lg transform skew-x-0 sm:skew-x-[14deg] transition-all duration-500 group-hover:skew-x-0 group-hover:left-[12px] group-hover:w-[calc(100%-50px)]"
                   style={{
                     background: `linear-gradient(315deg, ${gradientFrom}, ${gradientTo})`,
                   }}
                 />
                 <span
-                  className="absolute top-0 left-[35px] w-[52%] h-full rounded-lg transform skew-x-[14deg] blur-[26px] transition-all duration-500 group-hover:skew-x-0 group-hover:left-[12px] group-hover:w-[calc(100%-50px)] opacity-85"
+                  className="absolute top-0 left-[16px] sm:left-[35px] w-[calc(100%-32px)] sm:w-[52%] h-full rounded-lg transform skew-x-0 sm:skew-x-[14deg] blur-[22px] sm:blur-[26px] transition-all duration-500 group-hover:skew-x-0 group-hover:left-[12px] group-hover:w-[calc(100%-50px)] opacity-85"
                   style={{
                     background: `linear-gradient(315deg, ${gradientFrom}, ${gradientTo})`,
                   }}
@@ -154,6 +178,28 @@ export default function SkewCards({
               </div>
             );
           })}
+        </div>
+
+        {/* Mobile Carousel Pagination Dots */}
+        <div className="flex sm:hidden items-center justify-center gap-1.5 pt-2">
+          {cardList.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Go to project ${i + 1}`}
+              onClick={() => {
+                if (scrollRef.current) {
+                  const cardEl = scrollRef.current.children[i] as HTMLElement;
+                  if (cardEl) {
+                    cardEl.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                  }
+                }
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeIndex === i ? "w-6 bg-emerald-500" : "w-1.5 bg-white/20"
+              }`}
+            />
+          ))}
         </div>
       </div>
 

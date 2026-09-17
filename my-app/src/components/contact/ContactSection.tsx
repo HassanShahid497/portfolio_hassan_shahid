@@ -173,7 +173,7 @@ export function ContactSection() {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Your name"
-                    className="w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-emerald-500 transition-colors font-sans"
+                    className="w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-emerald-500 transition-colors font-sans text-base sm:text-xs"
                   />
                 </div>
 
@@ -185,7 +185,7 @@ export function ContactSection() {
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    className="w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-emerald-500 transition-colors font-sans"
+                    className="w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-emerald-500 transition-colors font-sans text-base sm:text-xs"
                   />
                 </div>
 
@@ -197,20 +197,26 @@ export function ContactSection() {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Your message..."
-                    className="w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-emerald-500 transition-colors font-sans resize-none"
+                    className="w-full bg-background border border-border rounded px-3 py-2 text-foreground focus:outline-none focus:border-emerald-500 transition-colors font-sans text-base sm:text-xs resize-none"
                   />
                 </div>
 
                 {errorMessage && (
-                  <div className="p-2.5 rounded bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-[11px] font-mono leading-tight">
-                    {errorMessage}
+                  <div className="p-3 rounded bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs font-mono space-y-1.5 leading-relaxed">
+                    <div>{errorMessage}</div>
+                    <a
+                      href={`mailto:${RESUME_DATA.profile.email}?subject=Portfolio Inquiry from ${encodeURIComponent(form.name || "Visitor")}&body=${encodeURIComponent(form.message || "")}`}
+                      className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:underline font-bold"
+                    >
+                      Click here to email directly ↗
+                    </a>
                   </div>
                 )}
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-2 bg-foreground text-background font-semibold rounded hover:bg-emerald-600 dark:hover:bg-emerald-500 hover:text-white dark:hover:text-black transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-foreground text-background font-semibold rounded hover:bg-emerald-600 dark:hover:bg-emerald-500 hover:text-white dark:hover:text-black transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-xs sm:text-xs"
                 >
                   {loading ? (
                     <>

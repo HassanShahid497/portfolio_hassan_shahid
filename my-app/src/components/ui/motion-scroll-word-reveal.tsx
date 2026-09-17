@@ -64,7 +64,7 @@ export function MotionScrollWordReveal({
   return (
     <div
       ref={targetRef}
-      className={cn("relative h-[160vh]", containerClassName)}
+      className={cn("relative h-[115vh] sm:h-[160vh]", containerClassName)}
     >
       <div className="sticky top-0 flex h-screen w-full items-center justify-center px-6 pointer-events-none">
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-6 pointer-events-auto">

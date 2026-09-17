@@ -47,21 +47,21 @@ export function Navbar() {
         >
           <button
             onClick={() => scrollTo("experience")}
-            className={
+            className={`hidden sm:inline-block transition-colors ${
               scrolled
-                ? "hover:text-foreground transition-colors"
-                : "hover:text-white transition-colors drop-shadow-sm"
-            }
+                ? "hover:text-foreground"
+                : "hover:text-white drop-shadow-sm"
+            }`}
           >
             Experience
           </button>
           <button
             onClick={() => scrollTo("projects")}
-            className={
+            className={`hidden sm:inline-block transition-colors ${
               scrolled
-                ? "hover:text-foreground transition-colors"
-                : "hover:text-white transition-colors drop-shadow-sm"
-            }
+                ? "hover:text-foreground"
+                : "hover:text-white drop-shadow-sm"
+            }`}
           >
             Projects
           </button>
