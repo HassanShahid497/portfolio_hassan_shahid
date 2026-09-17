@@ -120,44 +120,44 @@ export default function SkewCards({
 
                 {/* Animated blurs */}
                 <span className="pointer-events-none absolute inset-0 z-10">
-                  <span className="absolute top-0 left-0 w-0 h-0 rounded-lg opacity-0 bg-[rgba(255,255,255,0.12)] backdrop-blur-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.08)] transition-all duration-100 animate-blob group-hover:top-[-35px] group-hover:left-[35px] group-hover:w-[75px] group-hover:h-[75px] group-hover:opacity-100" />
-                  <span className="absolute bottom-0 right-0 w-0 h-0 rounded-lg opacity-0 bg-[rgba(255,255,255,0.12)] backdrop-blur-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.08)] transition-all duration-500 animate-blob animation-delay-1000 group-hover:bottom-[-35px] group-hover:right-[35px] group-hover:w-[75px] group-hover:h-[75px] group-hover:opacity-100" />
+                  <span className="absolute top-0 left-0 w-0 h-0 rounded-lg opacity-0 bg-white/40 dark:bg-[rgba(255,255,255,0.12)] backdrop-blur-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.08)] transition-all duration-100 animate-blob group-hover:top-[-35px] group-hover:left-[35px] group-hover:w-[75px] group-hover:h-[75px] group-hover:opacity-100" />
+                  <span className="absolute bottom-0 right-0 w-0 h-0 rounded-lg opacity-0 bg-white/40 dark:bg-[rgba(255,255,255,0.12)] backdrop-blur-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.08)] transition-all duration-500 animate-blob animation-delay-1000 group-hover:bottom-[-35px] group-hover:right-[35px] group-hover:w-[75px] group-hover:h-[75px] group-hover:opacity-100" />
                 </span>
 
                 {/* Content Card with high-contrast backing for crystal-clear readability */}
-                <div className="relative z-20 left-0 p-5 bg-[#0a0a0f]/95 dark:bg-[#0a0a0f]/95 border border-white/20 backdrop-blur-2xl shadow-2xl rounded-xl text-white transition-all duration-500 group-hover:left-[-14px] group-hover:border-white/40 flex flex-col justify-between h-full">
+                <div className="relative z-20 left-0 p-5 bg-card/95 dark:bg-[#0a0a0f]/95 border border-border dark:border-white/20 backdrop-blur-2xl shadow-xl dark:shadow-2xl rounded-xl text-card-foreground dark:text-white transition-all duration-500 group-hover:left-[-14px] group-hover:border-zinc-400/70 dark:group-hover:border-white/40 flex flex-col justify-between h-full">
                   <div>
                     {/* Category & Icon Header */}
                     <div className="flex items-center justify-between mb-2">
                       {category && (
-                        <span className="text-[9px] sm:text-[10px] uppercase font-mono tracking-widest px-2.5 py-0.5 rounded-full bg-black/90 text-white border border-white/20 shadow-xs">
+                        <span className="text-[9px] sm:text-[10px] uppercase font-mono tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-black/90 text-zinc-800 dark:text-white border border-zinc-200/80 dark:border-white/20 shadow-xs">
                           {category}
                         </span>
                       )}
-                      {icon && <div className="text-white drop-shadow-md">{icon}</div>}
+                      {icon && <div className="text-zinc-800 dark:text-white drop-shadow-xs dark:drop-shadow-md">{icon}</div>}
                     </div>
 
                     {/* Image Preview */}
                     {image && (
-                      <div className="relative w-full h-24 mb-2.5 rounded-lg overflow-hidden border border-white/15 bg-black/60 shadow-xs">
+                      <div className="relative w-full h-24 mb-2.5 rounded-lg overflow-hidden border border-zinc-200/80 dark:border-white/15 bg-zinc-100 dark:bg-black/60 shadow-xs">
                         <img
                           src={image}
                           alt={title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent dark:from-black/85 dark:via-black/25 dark:to-transparent" />
                       </div>
                     )}
 
-                    <h2 className="text-base sm:text-lg font-bold font-mono tracking-tight mb-1.5 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                    <h2 className="text-base sm:text-lg font-bold font-mono tracking-tight mb-1.5 text-zinc-900 dark:text-white dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                       {title}
                     </h2>
-                    <p className="text-[11px] sm:text-xs font-sans leading-relaxed text-zinc-200 line-clamp-3 group-hover:line-clamp-none transition-all duration-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                    <p className="text-[11px] sm:text-xs font-sans leading-relaxed text-zinc-600 dark:text-zinc-300 line-clamp-3 group-hover:line-clamp-none transition-all duration-300 dark:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
                       {desc}
                     </p>
                   </div>
 
-                  <div className="pt-2.5 border-t border-white/15 mt-auto">
+                  <div className="pt-2.5 border-t border-zinc-200/80 dark:border-white/15 mt-auto">
                     <a
                       href={link || "#"}
                       target={link && link.startsWith("http") ? "_blank" : undefined}
@@ -168,7 +168,7 @@ export default function SkewCards({
                           onActionClick(item, idx);
                         }
                       }}
-                      className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold text-black bg-white px-3 py-1.5 rounded hover:bg-emerald-400 hover:text-black hover:border-emerald-300 hover:shadow-lg transition-all duration-200 active:scale-95"
+                      className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold text-white dark:text-black bg-zinc-900 dark:bg-white px-3 py-1.5 rounded hover:bg-emerald-500 dark:hover:bg-emerald-400 hover:text-white dark:hover:text-black hover:shadow-lg transition-all duration-200 active:scale-95"
                     >
                       <span>{actionText}</span>
                       <span className="text-[10px]">↗</span>
@@ -196,7 +196,7 @@ export default function SkewCards({
                 }
               }}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeIndex === i ? "w-6 bg-emerald-500" : "w-1.5 bg-white/20"
+                activeIndex === i ? "w-6 bg-emerald-500" : "w-1.5 bg-zinc-300 dark:bg-white/20"
               }`}
             />
           ))}

@@ -16,7 +16,7 @@ const flagshipProjects: SkewCardItem[] = [
     gradientTo: "#ff0058",
     actionText: "Explore Agent",
     link: "https://github.com/HassanShahid497",
-    icon: <Bot className="w-4 h-4 text-amber-300" />,
+    icon: <Bot className="w-4 h-4 text-amber-500 dark:text-amber-300" />,
     image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
   },
   {
@@ -27,7 +27,7 @@ const flagshipProjects: SkewCardItem[] = [
     gradientTo: "#ff0058",
     actionText: "View Source",
     link: "https://github.com/HassanShahid497",
-    icon: <Sparkles className="w-4 h-4 text-cyan-300" />,
+    icon: <Sparkles className="w-4 h-4 text-cyan-600 dark:text-cyan-300" />,
     image: "https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&w=600&q=80",
   },
   {
@@ -38,7 +38,7 @@ const flagshipProjects: SkewCardItem[] = [
     gradientTo: "#00b4d8",
     actionText: "Inspect Architecture",
     link: "https://github.com/HassanShahid497",
-    icon: <Cpu className="w-4 h-4 text-emerald-300" />,
+    icon: <Cpu className="w-4 h-4 text-emerald-600 dark:text-emerald-300" />,
     image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80",
   },
 ];
@@ -47,8 +47,8 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="py-20 border-b border-border overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 space-y-12">
-        {/* Section Header with Achievement Introduction */}
-        <div className="max-w-3xl space-y-3">
+        {/* Section Header */}
+        <div className="max-w-3xl space-y-2">
           <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold tracking-wider uppercase flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Engineering Achievements & Work
@@ -58,8 +58,8 @@ export function ProjectsSection() {
             as="h2"
             className="text-2xl sm:text-3xl font-pixelta text-foreground tracking-wide"
           />
-          <p className="text-xs sm:text-sm font-sans text-muted-foreground leading-relaxed">
-            Software Engineering student at ITU with a <span className="font-semibold text-foreground">3.67 / 4.00 CGPA</span>, specializing in autonomous AI workflows and resilient system architectures. Previously managed technical communities and organized hackathons at <span className="font-semibold text-foreground">AI Labs</span>, while building production bot infrastructure, memory-optimized C++ libraries, and sub-2ms latency database schemas.
+          <p className="text-xs sm:text-sm font-sans text-muted-foreground">
+            Featured autonomous systems, production bot infrastructure, and high-performance software engineering.
           </p>
         </div>
 
