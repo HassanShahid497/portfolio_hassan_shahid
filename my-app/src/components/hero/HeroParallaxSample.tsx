@@ -41,11 +41,11 @@ export function HeroParallaxSample() {
   };
 
   return (
-    <section id="hero" className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden border-b border-border bg-black pt-20 sm:pt-24 select-none">
+    <section id="hero" className="relative w-full h-[95vh] sm:h-screen min-h-[640px] max-h-[1000px] flex flex-col justify-between overflow-hidden border-b border-border bg-black select-none">
       {/* ========================================================================= */}
       {/* VIDEO BACKGROUND & CENTERPIECE TYPOGRAPHY                                 */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-end justify-center">
         {/* Background Video */}
         <video
           autoPlay
@@ -62,36 +62,48 @@ export function HeroParallaxSample() {
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none" />
 
-        {/* Big Bold Name Typography on Screen */}
-        <div className="absolute inset-0 flex items-start justify-center pt-10 sm:pt-12 md:pt-14 lg:pt-12 z-10">
-          <h1 className="font-[family-name:var(--font-barlow-condensed)] font-black uppercase tracking-tight leading-none text-white text-[16vw] sm:text-[14vw] md:text-[12vw] lg:text-[130px] xl:text-[155px] text-center drop-shadow-[0_10px_35px_rgba(0,0,0,0.95)]">
+        {/* ========================================================================= */}
+        {/* 3-LAYER DEPTH EFFECT: VIDEO -> GIANT NAME -> SUBJECT PORTRAIT             */}
+        {/* ========================================================================= */}
+        {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
+        <div className="absolute top-[80px] sm:top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
+          <h1 className="font-pixelta tracking-wider uppercase leading-none text-white text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[102px] xl:text-[118px] text-center drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] whitespace-nowrap">
             Hassan Shahid
           </h1>
         </div>
 
+        {/* Layer 3: Main Cutout Portrait (z-20, in front of name, full body visible) */}
+        <div className="relative z-20 flex justify-center items-end h-[68vh] sm:h-[74vh] md:h-[78vh] lg:h-[80vh] max-h-[680px] pointer-events-none">
+          <img
+            src="/hero-person.svg"
+            alt="Hassan Shahid"
+            className="h-full w-auto object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05]"
+          />
+        </div>
+
         {/* Soft bottom edge blend into page background specifically in dark mode */}
-        <div className="absolute inset-x-0 bottom-0 h-40 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-28 hidden dark:block bg-gradient-to-t from-background via-background/70 to-transparent z-25 pointer-events-none" />
       </div>
 
       {/* ========================================================================= */}
-      {/* FOREGROUND HUD / COMPONENTS (Placed cleanly on top with z-30)             */}
+      {/* FOREGROUND HUD: DIAGONAL CONTRAST (UPPER-LEFT VS BOTTOM-RIGHT, z-30)      */}
       {/* ========================================================================= */}
-      <div className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 py-6 flex flex-col justify-between min-h-[92vh] sm:min-h-screen pointer-events-none">
-        {/* UPPER LEFT: Status Badge + Bio Caption + Social Icons (Moved down a notch) */}
-        <div className="pt-20 sm:pt-28 lg:pt-32 max-w-sm pointer-events-auto space-y-3.5">
+      <div className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
+        {/* UPPER-MID LEFT: Status Badge + Bio Caption + Social Icons (Below the name, not at the bottom) */}
+        <div className="pt-[200px] sm:pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left">
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-xs text-emerald-400 font-mono shadow-md">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>BS Software Engineering • ITU (CGPA 3.67)</span>
           </div>
 
-          {/* Clean Subtext without box */}
-          <p className="text-sm sm:text-base text-zinc-100 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
+          {/* Clean Subtext */}
+          <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
             Building AI automation and agentic workflows to streamline complex software engineering tasks with high precision.
           </p>
 
           {/* Social Icons */}
-          <div className="flex items-center gap-2.5 pt-1">
+          <div className="flex items-center gap-2.5 pt-0.5">
             <a
               href={RESUME_DATA.profile.twitter}
               target="_blank"
@@ -136,15 +148,15 @@ export function HeroParallaxSample() {
           </div>
         </div>
 
-        {/* BOTTOM RIGHT: Value Caption + Action Buttons (Moved up a nudge) */}
-        <div className="mt-auto ml-auto max-w-sm pointer-events-auto space-y-3.5 pb-20 sm:pb-24 lg:pb-28 text-left lg:text-right flex flex-col lg:items-end">
-          {/* Clean Subtext without box */}
-          <p className="text-sm sm:text-base text-zinc-100 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
+        {/* BOTTOM RIGHT: Value Caption + Action Buttons (Diagonal Contrast) */}
+        <div className="mt-auto ml-auto max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left md:text-right flex flex-col md:items-end">
+          {/* Clean Subtext */}
+          <p className="text-xs sm:text-sm text-zinc-200 font-sans font-normal leading-relaxed drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] max-w-xs sm:max-w-sm">
             Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-1">
+          <div className="flex flex-wrap items-center gap-3 pt-0.5">
             <button
               type="button"
               onClick={() => scrollTo("contact")}

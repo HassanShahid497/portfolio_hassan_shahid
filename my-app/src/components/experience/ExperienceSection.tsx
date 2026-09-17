@@ -16,7 +16,7 @@ export function ExperienceSection() {
           <KineticText
             text="Work History"
             as="h2"
-            className="text-2xl sm:text-3xl font-mono text-foreground tracking-tight"
+            className="text-2xl sm:text-3xl font-pixelta text-foreground tracking-wide"
           />
         </div>
 

@@ -8,8 +8,6 @@ import { sound } from "@/lib/sound";
 import {
   Home,
   Mail,
-  Volume2,
-  VolumeX,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -60,11 +58,9 @@ function XIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 export function PortfolioDock() {
   const [activeSection, setActiveSection] = useState<string>("home");
-  const [isMuted, setIsMuted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsMuted(sound.getMuted());
 
     const sectionIds = ["contact"];
     const handleScroll = () => {
@@ -107,14 +103,6 @@ export function PortfolioDock() {
         el.scrollIntoView({ behavior: "smooth" });
         setActiveSection(id);
       }
-    }
-  };
-
-  const toggleSound = () => {
-    const muted = sound.toggleMute();
-    setIsMuted(muted);
-    if (!muted) {
-      sound.playPing(1600);
     }
   };
 
@@ -210,25 +198,6 @@ export function PortfolioDock() {
             X (Twitter)
           </span>
           <XIcon className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-300 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
-        </DockIcon>
-
-        {/* Separator */}
-        <div className="h-5 w-[1px] bg-border dark:bg-white/[0.1] mx-0.5 self-center shrink-0" />
-
-        {/* Tactile Audio Switch */}
-        <DockIcon
-          onClick={toggleSound}
-          className="group relative rounded-xl bg-muted/60 dark:bg-white/[0.04] hover:bg-muted dark:hover:bg-white/[0.1] border border-border dark:border-white/[0.06] hover:border-emerald-500/40 transition-colors"
-          aria-label={isMuted ? "Unmute Sound FX" : "Mute Sound FX"}
-        >
-          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-md bg-card dark:bg-[#111114] border border-border dark:border-white/[0.12] text-[10px] font-mono text-foreground dark:text-zinc-200 shadow-xl opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 whitespace-nowrap z-50">
-            {isMuted ? "Sound: Muted" : "Sound: On"}
-          </span>
-          {isMuted ? (
-            <VolumeX className="w-4 h-4 text-zinc-500 group-hover:text-rose-400 transition-colors" />
-          ) : (
-            <Volume2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_6px_rgba(16,185,129,0.5)] transition-colors" />
-          )}
         </DockIcon>
 
         {/* Separator */}

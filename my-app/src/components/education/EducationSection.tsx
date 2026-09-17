@@ -16,7 +16,7 @@ export function EducationSection() {
           <KineticText
             text="Education"
             as="h2"
-            className="text-2xl sm:text-3xl font-mono text-foreground tracking-tight"
+            className="text-2xl sm:text-3xl font-pixelta text-foreground tracking-wide"
           />
         </div>
 

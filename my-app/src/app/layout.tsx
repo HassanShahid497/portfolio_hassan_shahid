@@ -1,7 +1,31 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, JetBrains_Mono, Barlow_Condensed, Anton } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+
+const pixelta = localFont({
+  src: "./fonts/Pixelta.ttf",
+  variable: "--font-pixelta",
+  display: "swap",
+});
+
+const pixelifySans = localFont({
+  src: [
+    {
+      path: "./fonts/PixelifySans-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/PixelifySans-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pixelify",
+  display: "swap",
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -62,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
+      className={`${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} ${pixelta.variable} ${pixelifySans.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-mono">

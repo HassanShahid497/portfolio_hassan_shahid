@@ -2,15 +2,41 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@font-face {
+  font-family: 'Pixelta';
+  src: url('/fonts/Pixelta.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pixelify Sans';
+  src: url('/fonts/PixelifySans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pixelify Sans';
+  src: url('/fonts/PixelifySans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-mono);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: 'Pixelify Sans', var(--font-pixelify), monospace;
+  --font-mono: 'Pixelify Sans', var(--font-pixelify), monospace;
+  --font-pixelify: 'Pixelify Sans', var(--font-pixelify), monospace;
   --font-display: var(--font-barlow-condensed);
   --font-anton: var(--font-anton);
+  --font-pixelta: 'Pixelta', var(--font-pixelta), sans-serif;
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -20,6 +46,18 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+}
+
+.font-pixelta {
+  font-family: 'Pixelta', var(--font-pixelta), sans-serif;
+}
+
+.font-mono {
+  font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
+}
+
+.font-sans {
+  font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
 }
 
 :root {
@@ -55,7 +93,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
   overflow-x: clip;
   selection-background-color: #22c55e;
   selection-color: #000;
