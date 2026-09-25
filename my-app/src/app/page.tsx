@@ -12,10 +12,25 @@ import { RESUME_DATA } from "@/lib/data";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import { PortfolioDock } from "@/components/layout/PortfolioDock";
 import { MotionScrollWordReveal } from "@/components/ui/motion-scroll-word-reveal";
+import { DotPattern } from "@/components/ui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground flex flex-col font-mono selection:bg-emerald-500 selection:text-black pb-28 sm:pb-20">
+    <main className="relative min-h-screen bg-background text-foreground flex flex-col font-mono selection:bg-emerald-500 selection:text-black pb-28 sm:pb-20">
+      {/* Global Background Dot Pattern */}
+      <DotPattern
+        width={24}
+        height={24}
+        cx={1}
+        cy={1}
+        cr={1}
+        className={cn(
+          "fill-slate-500/20 dark:fill-slate-400/20",
+          "fixed inset-0 h-full w-full pointer-events-none z-0",
+        )}
+      />
+
       <SmoothCursor />
       {/* Floating MagicUI Dock Navigation */}
       <PortfolioDock />
@@ -27,7 +42,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Motion Scroll Word Reveal: Ambition & Deliverables */}
-      <section id="vision" className="border-b border-border">
+      <section id="vision" className="relative z-10 border-b border-border bg-background/50 backdrop-blur-[1px]">
         <MotionScrollWordReveal
           eyebrow="Vision & Commitment"
           text="I build autonomous systems that bridge human intent with agentic intelligence. My ambition is to architect AI workflows that eliminate complex, repetitive toil—engineering intelligent automations, resilient backend architectures, and self-driving software that empower teams to achieve more with unprecedented speed and precision."
@@ -36,22 +51,32 @@ export default function Home() {
       </section>
 
       {/* Experience: AI Labs (Discord Moderator & Twitter/X Manager) */}
-      <ExperienceSection />
+      <div className="relative z-10">
+        <ExperienceSection />
+      </div>
 
       {/* Projects: Agentic Automator, Discord Bot, C++ DSA, PostgreSQL */}
-      <ProjectsSection />
+      <div className="relative z-10">
+        <ProjectsSection />
+      </div>
 
       {/* Education: Information Technology University, 3.67 CGPA, Coursework */}
-      <EducationSection />
+      <div className="relative z-10">
+        <EducationSection />
+      </div>
 
       {/* Skills & Hobbies: Technical Matrix and Personal Interests */}
-      <SkillsSection />
+      <div className="relative z-10">
+        <SkillsSection />
+      </div>
 
       {/* Contact: Direct Email, Phone, Location & Minimal Form */}
-      <ContactSection />
+      <div className="relative z-10">
+        <ContactSection />
+      </div>
 
       {/* Clean Modern Footer */}
-      <footer className="border-t border-border bg-card/60 py-12 font-mono text-xs text-muted-foreground">
+      <footer className="relative z-10 border-t border-border bg-card/60 py-12 font-mono text-xs text-muted-foreground">
         <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-foreground">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />

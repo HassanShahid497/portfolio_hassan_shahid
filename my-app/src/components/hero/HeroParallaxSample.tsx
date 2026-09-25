@@ -5,6 +5,8 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { RESUME_DATA } from "@/lib/data";
 import { sound } from "@/lib/sound";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { DotPattern } from "@/components/ui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -47,40 +49,25 @@ export function HeroParallaxSample() {
       {/* MOBILE-ONLY TAILORED HERO (< sm / phones)                                 */}
       {/* ========================================================================= */}
       <div className="flex sm:hidden relative z-30 w-full min-h-screen flex-col justify-between pt-20 pb-7 px-5 overflow-hidden bg-white dark:bg-black select-none transition-colors duration-500">
-        {/* Layer 0: Background Animated Videos & Ambient Overlays (strictly BEHIND the image) */}
+        {/* Layer 0: Background DotPattern & Ambient Overlays (strictly BEHIND the image) */}
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
-          {/* Light Mode Video Background (hero-video-light.mp4) */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.98] contrast-[1.05] dark:opacity-0 opacity-100 transition-opacity duration-700 ease-in-out"
-          >
-            <source src="/hero-video-light.mp4" type="video/mp4" />
-          </video>
-
-          {/* Dark Mode Video Background (hero-video.mp4) */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1] dark:opacity-100 opacity-0 transition-opacity duration-700 ease-in-out"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
-
-          {/* Subtle Ambient Video Tint */}
-          <div className="absolute inset-0 bg-white/20 dark:bg-black/35 pointer-events-none transition-colors duration-500" />
+          <DotPattern
+            width={22}
+            height={22}
+            cx={1}
+            cy={1}
+            cr={1}
+            className={cn(
+              "fill-slate-500/40 dark:fill-slate-400/30",
+              "[mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]",
+            )}
+          />
 
           {/* Soft Left Scrim for Text Contrast */}
           <div className="absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-white via-white/85 to-transparent dark:from-black dark:via-black/85 dark:to-transparent pointer-events-none transition-colors duration-500" />
 
           {/* Soft Bottom Scrim for Buttons */}
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/85 to-transparent dark:from-black dark:via-black/85 to-transparent pointer-events-none transition-colors duration-500" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/85 to-transparent dark:from-black dark:via-black/85 dark:to-transparent pointer-events-none transition-colors duration-500" />
         </div>
 
         {/* Layer 1: Main Cutout Portrait SVG (IN FRONT of background, strictly NOT inverted, half face crop) */}
@@ -88,7 +75,7 @@ export function HeroParallaxSample() {
           <img
             src="/hero-person.svg"
             alt="Hassan Shahid"
-            className="h-[66vh] max-h-[550px] w-auto object-contain object-bottom select-none translate-x-[64%] xs:translate-x-[24%]  scale-[1.4] origin-bottom-right drop-shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none"
+            className="h-[66vh] max-h-[550px] w-auto object-contain object-bottom select-none translate-x-[64%] xs:translate-x-[24%] scale-[1.4] origin-bottom-right drop-shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none"
           />
         </div>
 
@@ -194,35 +181,22 @@ export function HeroParallaxSample() {
       {/* DESKTOP / LAPTOP HERO (hidden sm:flex, h-screen min-h-[640px] max-h-[1000px]) */}
       {/* ========================================================================= */}
       <div className="hidden sm:flex relative w-full h-screen min-h-[640px] max-h-[1000px] flex-col justify-between overflow-hidden">
-        {/* Layer 1: Background Video + Gradient Overlays + Centered Portrait & Big Name */}
+        {/* Layer 1: Background DotPattern + Gradient Overlays + Centered Portrait & Big Name */}
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden flex items-end justify-center">
-          {/* Light Mode Video Background (hero-video-light.mp4) */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.98] contrast-[1.05] dark:opacity-0 opacity-100 transition-opacity duration-700 ease-in-out"
-          >
-            <source src="/hero-video-light.mp4" type="video/mp4" />
-          </video>
+          <DotPattern
+            width={24}
+            height={24}
+            cx={1}
+            cy={1}
+            cr={1}
+            className={cn(
+              "fill-slate-500/40 dark:fill-slate-400/35",
+              "[mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,white,transparent_90%)]",
+            )}
+          />
 
-          {/* Dark Mode Video Background (hero-video.mp4) */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-[1.1] dark:opacity-100 opacity-0 transition-opacity duration-700 ease-in-out"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
-
-          {/* Ambient Overlays: clean & light in light mode, deep & contrasty in dark mode */}
-          <div className="absolute inset-0 bg-white/5 dark:bg-black/40 backdrop-blur-[0.5px] transition-colors duration-500" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-transparent to-transparent dark:from-black/50 dark:via-transparent dark:to-black/60 pointer-events-none transition-colors duration-500" />
+          {/* Ambient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/40 dark:from-black/40 dark:via-transparent dark:to-black/60 pointer-events-none transition-colors duration-500" />
 
           {/* Layer 2: Giant Bold Name Typography (z-10, right behind head, just below navbar) */}
           <div className="absolute top-[80px] sm:top-[84px] md:top-[88px] lg:top-[84px] inset-x-0 flex justify-center z-10 select-none pointer-events-none">
