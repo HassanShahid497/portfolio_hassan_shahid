@@ -31,8 +31,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'Pixelify Sans', var(--font-pixelify), monospace;
-  --font-mono: 'Pixelify Sans', var(--font-pixelify), monospace;
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-jetbrains-mono), monospace;
   --font-pixelify: 'Pixelify Sans', var(--font-pixelify), monospace;
   --font-display: var(--font-barlow-condensed);
   --font-anton: var(--font-anton);
@@ -52,12 +52,16 @@
   font-family: 'Pixelta', var(--font-pixelta), sans-serif;
 }
 
-.font-mono {
+.font-pixelify {
   font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
 }
 
+.font-mono {
+  font-family: var(--font-geist-mono), var(--font-jetbrains-mono), monospace;
+}
+
 .font-sans {
-  font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
@@ -93,7 +97,9 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 350;
+  letter-spacing: -0.01em;
   overflow-x: clip;
   selection-background-color: #22c55e;
   selection-color: #000;
@@ -195,4 +201,4 @@ body {
 
 .animation-delay-1000 {
   animation-delay: -1s;
-}
+}

@@ -77,7 +77,7 @@ export function MotionScrollWordReveal({
 
           <p
             className={cn(
-              "flex flex-wrap justify-center text-lg sm:text-xl md:text-2xl font-mono leading-relaxed tracking-tight",
+              "flex flex-wrap justify-center text-lg sm:text-xl md:text-2xl font-sans font-light leading-relaxed tracking-normal",
               className
             )}
           >

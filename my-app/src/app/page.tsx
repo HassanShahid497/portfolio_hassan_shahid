@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-background text-foreground flex flex-col font-mono selection:bg-emerald-500 selection:text-black pb-28 sm:pb-20">
+    <main className="relative min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-emerald-500 selection:text-black pb-28 sm:pb-20">
       {/* Global Interactive Flow Motion Dot Pattern */}
       <DotPattern
         width={24}

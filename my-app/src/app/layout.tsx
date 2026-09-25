@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, JetBrains_Mono, Barlow_Condensed, Anton } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono, Barlow_Condensed, Anton } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -24,6 +24,13 @@ const pixelifySans = localFont({
     },
   ],
   variable: "--font-pixelify",
+  display: "swap",
+});
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -86,10 +93,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} ${pixelta.variable} ${pixelifySans.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
+      className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} ${pixelta.variable} ${pixelifySans.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-mono">
+      <body className="min-h-full flex flex-col bg-background text-foreground font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
