@@ -11,7 +11,7 @@ import { ContactSection } from "@/components/contact/ContactSection";
 import { RESUME_DATA } from "@/lib/data";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import { PortfolioDock } from "@/components/layout/PortfolioDock";
-import { MotionScrollWordReveal } from "@/components/ui/motion-scroll-word-reveal";
+import { ScrambleScrollReveal } from "@/components/ui/scramble-scroll-reveal";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 
@@ -44,12 +44,12 @@ export default function Home() {
       {/* Hero: Identity, ITU Credentials, Bio, and Quick Links */}
       <HeroSection />
 
-      {/* Motion Scroll Word Reveal: Ambition & Deliverables */}
-      <section id="vision" className="relative z-10 bg-background/50 backdrop-blur-[1px]">
-        <MotionScrollWordReveal
-          eyebrow="Vision & Commitment"
-          text="I build autonomous systems that bridge human intent with agentic intelligence. My ambition is to architect AI workflows that eliminate complex, repetitive toil—engineering intelligent automations, resilient backend architectures, and self-driving software that empower teams to achieve more with unprecedented speed and precision."
-          accentWords={["autonomous", "agentic", "intelligence", "automations", "precision"]}
+      {/* Monumental Scramble Scroll Reveal: Scrambled & blurred pre-scroll, surfacing and rearranging on scroll */}
+      <section id="vision" className="relative z-10">
+        <ScrambleScrollReveal
+          eyebrow="Vision & Core Ambition"
+          text="I BUILD AUTONOMOUS SYSTEMS THAT BRIDGE HUMAN INTENT WITH AGENTIC INTELLIGENCE AND EFFORTLESS AUTOMATION."
+          accentWords={["AUTONOMOUS", "SYSTEMS", "HUMAN", "AGENTIC", "INTELLIGENCE", "AUTOMATION"]}
         />
       </section>
 
