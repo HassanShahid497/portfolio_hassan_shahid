@@ -44,7 +44,7 @@ export function HeroParallaxSample() {
   };
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden border-b border-border bg-white dark:bg-black select-none transition-colors duration-500">
+    <section id="hero" className="relative w-full overflow-hidden bg-white dark:bg-black select-none transition-colors duration-500">
       {/* ========================================================================= */}
       {/* MOBILE-ONLY TAILORED HERO (< sm / phones)                                 */}
       {/* ========================================================================= */}

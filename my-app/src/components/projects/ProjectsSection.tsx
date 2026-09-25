@@ -45,7 +45,7 @@ const flagshipProjects: SkewCardItem[] = [
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-20 border-b border-border overflow-hidden">
+    <section id="projects" className="py-20 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 space-y-12">
         {/* Section Header */}
         <div className="max-w-3xl space-y-2">

@@ -6,7 +6,7 @@ import { KineticText } from "@/components/ui/kinetic-text";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-24 border-b border-border">
+    <section id="skills" className="py-24">
       <div className="max-w-4xl mx-auto px-6 space-y-10">
         {/* Section Header */}
         <div className="space-y-1">

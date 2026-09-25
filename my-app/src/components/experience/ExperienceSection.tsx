@@ -34,7 +34,7 @@ function XIcon({ className = "w-3 h-3" }: { className?: string }) {
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="py-24 border-b border-border">
+    <section id="experience" className="py-24">
       <div className="max-w-4xl mx-auto px-6 space-y-10">
         {/* Section Header */}
         <div className="space-y-1">
