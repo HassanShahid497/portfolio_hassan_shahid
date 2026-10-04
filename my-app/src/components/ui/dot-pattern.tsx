@@ -75,7 +75,8 @@ export function DotPattern({
     let dots: Dot[] = [];
 
     const isDarkMode = () =>
-      document.documentElement.classList.contains("dark");
+      document.documentElement.classList.contains("dark") ||
+      Boolean(canvas.closest(".dark"));
 
     const setupDots = () => {
       const rect = canvas.getBoundingClientRect();

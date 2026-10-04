@@ -47,7 +47,7 @@ export function MobileHero() {
   };
 
   return (
-    <div className="relative z-30 w-full min-h-[100dvh] flex flex-col justify-between pt-20 pb-7 px-5 overflow-hidden bg-white dark:bg-black select-none transition-colors duration-500">
+    <div className="dark relative z-30 w-full min-h-[100dvh] flex flex-col justify-between pt-20 pb-7 px-5 overflow-hidden bg-black text-white select-none">
       {/* Layer 0: Background DotPattern & Ambient Overlays (strictly BEHIND the image) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <DotPattern
@@ -60,6 +60,8 @@ export function MobileHero() {
           flowRadius={150}
           flowIntensity={1.2}
           waveAnimation={true}
+          dotColor="rgba(148, 163, 184, 0.28)"
+          glowColor="rgba(52, 211, 153, 0.85)"
           className={cn(
             "[mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]",
             "[-webkit-mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]"
@@ -67,10 +69,10 @@ export function MobileHero() {
         />
 
         {/* Soft Left Scrim for Text Contrast */}
-        <div className="absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-white via-white/85 to-transparent dark:from-black dark:via-black/85 dark:to-transparent pointer-events-none transition-colors duration-500" />
+        <div className="absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-black via-black/85 to-transparent pointer-events-none" />
 
         {/* Soft Bottom Scrim for Buttons */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/85 to-transparent dark:from-black dark:via-black/85 dark:to-transparent pointer-events-none transition-colors duration-500" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none" />
       </div>
 
       {/* Layer 1: Main Cutout Portrait SVG (IN FRONT of background, strictly NOT inverted, half face crop) */}
@@ -78,7 +80,7 @@ export function MobileHero() {
         <img
           src="/hero-person.svg"
           alt="Hassan Shahid"
-          className="h-[66vh] max-h-[550px] w-auto object-contain object-bottom select-none translate-x-[64%] xs:translate-x-[24%] scale-[1.4] origin-bottom-right drop-shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none"
+          className="h-[66vh] max-h-[550px] w-auto object-contain object-bottom select-none translate-x-[64%] xs:translate-x-[24%] scale-[1.4] origin-bottom-right drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none"
         />
       </div>
 
@@ -86,7 +88,7 @@ export function MobileHero() {
       <div className="relative z-20 flex flex-col justify-between h-full min-h-[calc(100dvh-110px)] w-full pointer-events-none">
         {/* Top Header: Stacked Giant Name Typography */}
         <div className="w-full text-left pt-2 pointer-events-auto">
-          <h1 className="font-pixelta uppercase tracking-wide leading-[0.88] text-zinc-950 dark:text-white text-[18vw] xs:text-[16vw] select-text">
+          <h1 className="font-pixelta uppercase tracking-wide leading-[0.88] text-white text-[18vw] xs:text-[16vw] select-text drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
             HASSAN
             <br />
             SHAHID
@@ -96,18 +98,18 @@ export function MobileHero() {
         {/* Middle-Left Content HUD: Credential Pill + Statement + Value Prop + Socials */}
         <div className="w-full max-w-[215px] xs:max-w-[240px] space-y-3.5 text-left pt-1 pb-4 pointer-events-auto">
           {/* Education Credential Pill */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/85 dark:bg-black/75 border border-black/10 dark:border-white/20 backdrop-blur-md text-[10.5px] text-zinc-800 dark:text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-md w-fit transition-colors duration-500">
-            <span className="w-1.5 h-1.5 rounded-full bg-zinc-800 dark:bg-zinc-200 animate-pulse shrink-0" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/75 border border-white/20 backdrop-blur-md text-[10.5px] text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-md w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <span className="truncate">BS Software Engineering-ITU (3.67)</span>
           </div>
 
           {/* Primary Headline */}
-          <h2 className="text-[15px] xs:text-[16px] font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-bold text-zinc-950 dark:text-white leading-snug tracking-tight drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors duration-500">
+          <h2 className="text-[15px] xs:text-[16px] font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-bold text-white leading-snug tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
             Building autonomous AI workflows &amp; resilient systems.
           </h2>
 
           {/* Secondary Description */}
-          <p className="text-[11px] xs:text-[11.5px] text-zinc-700 dark:text-zinc-300/90 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-normal leading-relaxed drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors duration-500">
+          <p className="text-[11px] xs:text-[11.5px] text-zinc-300/90 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
             Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
           </p>
 
@@ -119,7 +121,7 @@ export function MobileHero() {
               rel="noreferrer"
               onClick={() => sound.playClick(1000)}
               aria-label="Twitter / X"
-              className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              className="w-8.5 h-8.5 rounded-xl bg-black/75 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <XIcon className="w-3.5 h-3.5" />
             </a>
@@ -130,7 +132,7 @@ export function MobileHero() {
               rel="noreferrer"
               onClick={() => sound.playClick(1000)}
               aria-label="LinkedIn"
-              className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              className="w-8.5 h-8.5 rounded-xl bg-black/75 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <LinkedinIcon className="w-3.5 h-3.5" />
             </a>
@@ -141,7 +143,7 @@ export function MobileHero() {
               rel="noreferrer"
               onClick={() => sound.playClick(1000)}
               aria-label="GitHub"
-              className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              className="w-8.5 h-8.5 rounded-xl bg-black/75 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <GithubIcon className="w-3.5 h-3.5" />
             </a>
@@ -150,7 +152,7 @@ export function MobileHero() {
               href={`mailto:${RESUME_DATA.profile.email}`}
               onClick={() => sound.playClick(1000)}
               aria-label="Email"
-              className="w-8.5 h-8.5 rounded-xl bg-white/85 dark:bg-black/75 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-black/10 dark:border-white/20 text-zinc-900 dark:text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
+              className="w-8.5 h-8.5 rounded-xl bg-black/75 hover:bg-zinc-800 border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md backdrop-blur-md"
             >
               <Mail className="w-3.5 h-3.5" />
             </a>
@@ -162,19 +164,19 @@ export function MobileHero() {
           <button
             type="button"
             onClick={() => scrollTo("contact")}
-            className="h-11 px-3.5 flex-1 rounded-full bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-100 dark:text-black text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-black/20 dark:shadow-black/40 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+            className="h-11 px-3.5 flex-1 rounded-full bg-white hover:bg-zinc-100 text-black text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-black/40 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
-            <span className="w-2 h-2 rounded-full bg-white dark:bg-black shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-black shrink-0" />
             <span>Get in Touch</span>
           </button>
 
           <button
             type="button"
             onClick={() => scrollTo("projects")}
-            className="h-11 px-3.5 flex-1 rounded-full bg-white/85 hover:bg-white border border-black/15 text-zinc-950 dark:bg-black/80 dark:hover:bg-zinc-800 dark:border-white/20 dark:text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-lg shadow-black/10 dark:shadow-black/40 whitespace-nowrap"
+            className="h-11 px-3.5 flex-1 rounded-full bg-black/80 hover:bg-zinc-800 border border-white/20 text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-lg shadow-black/40 whitespace-nowrap"
           >
             <span>View Projects</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-300 stroke-[2.2]" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-zinc-300 stroke-[2.2]" />
           </button>
         </div>
       </div>
