@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { RESUME_DATA } from "@/lib/data";
 import { sound } from "@/lib/sound";
@@ -36,6 +36,62 @@ function XIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export function MobileHero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Dynamic automatic calculation of portrait placement to center the head down to the sub-pixel
+  const [headPlacement, setHeadPlacement] = useState<{
+    left: number;
+    width: number;
+    height: number;
+    isReady: boolean;
+  }>({
+    left: 0,
+    width: 0,
+    height: 0,
+    isReady: false,
+  });
+
+  useEffect(() => {
+    const calculateCenterFormula = () => {
+      if (!containerRef.current) return;
+      const { clientWidth: W, clientHeight: H } = containerRef.current;
+      if (W === 0 || H === 0) return;
+
+      // 1. Portrait sizing ratio based on mobile viewport height
+      const portraitHeight = Math.min(H * 0.58, 490);
+      const portraitWidth = portraitHeight * (1429 / 1417); // SVG natural aspect ratio
+
+      // 2. MATHEMATICAL HEAD CENTERING FORMULA:
+      // In hero-person.svg (1429x1417), the head center is situated at X = 718.75px.
+      // Ratio of head center = 718.75 / 1429 = 0.502974 (50.297%)
+      const headOffsetRatio = 718.75 / 1429;
+      const headPixelDistance = portraitWidth * headOffsetRatio;
+
+      // Position portrait left edge so that headPixelDistance aligns exactly with screen center (W / 2)
+      const calculatedLeft = (W / 2) - headPixelDistance;
+
+      setHeadPlacement({
+        left: calculatedLeft,
+        width: portraitWidth,
+        height: portraitHeight,
+        isReady: true,
+      });
+    };
+
+    calculateCenterFormula();
+
+    const resizeObserver = new ResizeObserver(calculateCenterFormula);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    window.addEventListener("resize", calculateCenterFormula);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", calculateCenterFormula);
+    };
+  }, []);
+
   const scrollTo = (id: string) => {
     try {
       sound.playClick(1200);
@@ -47,8 +103,11 @@ export function MobileHero() {
   };
 
   return (
-    <div className="dark relative z-30 w-full min-h-[100dvh] flex flex-col justify-between pt-20 pb-7 px-5 overflow-hidden bg-black text-white select-none">
-      {/* Layer 0: Background DotPattern & Ambient Overlays (strictly BEHIND the image) */}
+    <div
+      ref={containerRef}
+      className="dark relative z-30 w-full min-h-[100dvh] flex flex-col justify-between pt-20 pb-7 px-5 overflow-hidden bg-black text-white select-none transition-colors duration-500"
+    >
+      {/* Layer 0: Background DotPattern & Ambient Center Overlays */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <DotPattern
           width={22}
@@ -63,42 +122,61 @@ export function MobileHero() {
           dotColor="rgba(148, 163, 184, 0.28)"
           glowColor="rgba(52, 211, 153, 0.85)"
           className={cn(
-            "[mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]",
-            "[-webkit-mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]"
+            "[mask-image:radial-gradient(ellipse_75%_75%_at_50%_45%,white,transparent_90%)]",
+            "[-webkit-mask-image:radial-gradient(ellipse_75%_75%_at_50%_45%,white,transparent_90%)]"
           )}
         />
 
-        {/* Soft Left Scrim for Text Contrast */}
-        <div className="absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-black via-black/85 to-transparent pointer-events-none" />
+        {/* Soft Radial Center Contrast Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.8)_80%,rgba(0,0,0,0.95)_100%)] pointer-events-none" />
 
         {/* Soft Bottom Scrim for Buttons */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none" />
       </div>
 
-      {/* Layer 1: Main Cutout Portrait SVG (IN FRONT of background, strictly NOT inverted, half face crop) */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-10 flex items-end justify-end">
+      {/* Layer 1: Main Cutout Portrait SVG - Measured and Centered with Sub-Pixel Precision */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-10">
         <img
           src="/hero-person.svg"
           alt="Hassan Shahid"
-          className="h-[66vh] max-h-[550px] w-auto object-contain object-bottom select-none translate-x-[64%] xs:translate-x-[24%] scale-[1.4] origin-bottom-right drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none"
+          style={
+            headPlacement.isReady
+              ? {
+                  position: "absolute",
+                  left: `${headPlacement.left}px`,
+                  bottom: 0,
+                  width: `${headPlacement.width}px`,
+                  height: `${headPlacement.height}px`,
+                }
+              : {
+                  position: "absolute",
+                  left: "50%",
+                  bottom: 0,
+                  transform: "translateX(-50%)",
+                  height: "58vh",
+                  maxHeight: "490px",
+                  width: "auto",
+                }
+          }
+          className="object-contain object-bottom select-none drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] filter contrast-[1.05] pointer-events-none transition-all duration-300 ease-out"
         />
       </div>
 
       {/* Layer 2: Foreground Content (z-20) */}
       <div className="relative z-20 flex flex-col justify-between h-full min-h-[calc(100dvh-110px)] w-full pointer-events-none">
-        {/* Top Header: Stacked Giant Name Typography */}
-        <div className="w-full text-left pt-2 pointer-events-auto">
-          <h1 className="font-pixelta uppercase tracking-wide leading-[0.88] text-white text-[18vw] xs:text-[16vw] select-text drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
+        {/* Top Header: Stacked Giant Name Typography - Balanced & Centered */}
+        <div className="w-full text-center pt-2 pointer-events-auto">
+          <h1 className="font-pixelta uppercase tracking-wider leading-[0.88] text-white text-[16vw] xs:text-[14vw] select-text drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             HASSAN
             <br />
             SHAHID
           </h1>
         </div>
 
-        {/* Middle-Left Content HUD: Credential Pill + Statement + Value Prop + Socials */}
-        <div className="w-full max-w-[215px] xs:max-w-[240px] space-y-3.5 text-left pt-1 pb-4 pointer-events-auto">
+        {/* Centered Content HUD: Credential Pill + Statement + Value Prop + Socials */}
+        <div className="w-full max-w-[320px] xs:max-w-[340px] mx-auto space-y-3.5 text-center flex flex-col items-center pt-1 pb-4 pointer-events-auto">
           {/* Education Credential Pill */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/75 border border-white/20 backdrop-blur-md text-[10.5px] text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-md w-fit">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 border border-white/20 backdrop-blur-md text-[10.5px] text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-lg w-fit">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <span className="truncate">BS Software Engineering-ITU (3.67)</span>
           </div>
@@ -109,12 +187,12 @@ export function MobileHero() {
           </h2>
 
           {/* Secondary Description */}
-          <p className="text-[11px] xs:text-[11.5px] text-zinc-300/90 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+          <p className="text-[11px] xs:text-[11.5px] text-zinc-300/90 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-normal leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] max-w-[280px]">
             Merging software engineering rigor with agentic intelligence to architect digital systems that perform effortlessly.
           </p>
 
           {/* Social Links Row */}
-          <div className="flex items-center gap-2 pt-0.5">
+          <div className="flex items-center justify-center gap-2 pt-0.5">
             <a
               href={RESUME_DATA.profile.twitter}
               target="_blank"
@@ -159,8 +237,8 @@ export function MobileHero() {
           </div>
         </div>
 
-        {/* Bottom Action Buttons: Side-by-side Dual Pills */}
-        <div className="w-full flex items-center gap-2.5 pt-1 pb-1 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] pointer-events-auto">
+        {/* Bottom Action Buttons: Side-by-side Dual Pills - Centered */}
+        <div className="w-full max-w-[340px] mx-auto flex items-center gap-2.5 pt-1 pb-1 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] pointer-events-auto">
           <button
             type="button"
             onClick={() => scrollTo("contact")}
