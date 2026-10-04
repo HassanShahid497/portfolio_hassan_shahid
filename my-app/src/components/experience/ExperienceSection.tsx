@@ -4,6 +4,18 @@ import React from "react";
 import Image from "next/image";
 import WarpText from "@/components/WarpText";
 
+// =========================================================================================
+// 🎯 MANUAL ADJUSTMENT CONTROLS for "ABOUT ME" Section:
+// =========================================================================================
+// 1. HEAD & "ABOUT ME" TITLE HORIZONTAL SHIFT (in pixels on mobile):
+//    0 = centered. Negative (e.g. -15) = shift left, Positive (e.g. +15) = shift right.
+export const MOBILE_ABOUT_HEAD_OFFSET_X = 0;
+
+// 2. EXPERIENCE / EDUCATION TEXT HORIZONTAL SHIFT (in pixels on mobile):
+//    0 = centered / aligned. Negative = shift left, Positive = shift right.
+export const MOBILE_ABOUT_TEXT_OFFSET_X = 0;
+// =========================================================================================
+
 export function ExperienceSection() {
   return (
     <section
@@ -14,7 +26,10 @@ export function ExperienceSection() {
       <div className="relative w-full max-w-[1180px] mx-auto min-h-[650px] bg-white px-6 sm:px-8 md:px-12 py-8 md:py-12 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14 lg:gap-20 select-text">
         
         {/* ================= LEFT SIDE: Portrait & "ABOUT ME" ================= */}
-        <div className="relative w-full md:w-auto flex flex-col items-center justify-center shrink-0 translate-x-[30px]">
+        <div
+          style={{ transform: `translateX(${MOBILE_ABOUT_HEAD_OFFSET_X}px)` }}
+          className="relative w-full md:w-auto flex flex-col items-center justify-center shrink-0 translate-x-0 md:translate-x-[30px] transition-transform duration-200"
+        >
           {/* Animated "ABOUT ME" with react-bits WarpText */}
           <div className="w-full max-w-[380px] sm:max-w-[420px] mb-[-95px] sm:mb-[-115px] md:mb-[-125px] z-20 flex justify-center">
             <WarpText
@@ -52,7 +67,10 @@ export function ExperienceSection() {
         </div>
 
         {/* ================= RIGHT SIDE: Editorial CV Layout ================= */}
-        <div className="relative w-full md:w-[420px] lg:w-[460px] flex flex-col justify-between py-2 space-y-7 md:space-y-8 shrink-0 z-10 translate-x-[100px]">
+        <div
+          style={{ transform: `translateX(${MOBILE_ABOUT_TEXT_OFFSET_X}px)` }}
+          className="relative w-full md:w-[420px] lg:w-[460px] flex flex-col justify-between py-2 space-y-7 md:space-y-8 shrink-0 z-10 translate-x-0 md:translate-x-[100px] transition-transform duration-200"
+        >
           
           {/* SECTION 1: EXPERIENCE */}
           <div className="space-y-2">

@@ -96,11 +96,6 @@ export function HeroParallaxSample() {
 
           {/* Middle-Left Content HUD: Credential Pill + Statement + Value Prop + Socials */}
           <div className="w-full max-w-[215px] space-y-3.5 text-left pt-1 pb-4 pointer-events-auto">
-            {/* Education Credential Pill */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/85 dark:bg-black/75 border border-black/10 dark:border-white/20 backdrop-blur-md text-[10.5px] text-zinc-800 dark:text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-md w-fit transition-colors duration-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-800 dark:bg-zinc-200 animate-pulse shrink-0" />
-              <span className="truncate">BS Software Engineering-ITU (3.67)</span>
-            </div>
 
             {/* Primary Headline */}
             <h2 className="text-[15px] xs:text-[16px] font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] font-bold text-zinc-950 dark:text-white leading-snug tracking-tight drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] transition-colors duration-500">
