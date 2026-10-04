@@ -10,7 +10,7 @@ export function SkillsSection() {
       <div className="max-w-4xl mx-auto px-6 space-y-10">
         {/* Section Header */}
         <div className="space-y-1">
-          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold tracking-wider uppercase">
+          <div className="text-xs font-mono text-muted-foreground font-semibold tracking-wider uppercase">
             Competencies
           </div>
           <KineticText

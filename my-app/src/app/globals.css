@@ -26,6 +26,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Beau Rivage';
+  src: url('/fonts/BeauRivage-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -37,6 +45,7 @@
   --font-display: var(--font-barlow-condensed);
   --font-anton: var(--font-anton);
   --font-pixelta: 'Pixelta', var(--font-pixelta), sans-serif;
+  --font-beau-rivage: 'Beau Rivage', var(--font-beau-rivage), cursive;
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -46,14 +55,42 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-parchment: #f3f1ed;
+  --color-pure-white: #ffffff;
+  --color-ink-black: #181011;
+  --color-charcoal: #222222;
+  --color-aubergine-black: #302023;
+  --color-ash: #aaaaaa;
+  --color-dim: #666666;
+  --color-bone: #d8d4d4;
 }
 
 .font-pixelta {
   font-family: 'Pixelta', var(--font-pixelta), sans-serif;
 }
 
+.font-beau-rivage {
+  font-family: 'Beau Rivage', var(--font-beau-rivage), cursive;
+}
+
 .font-pixelify {
   font-family: 'Pixelify Sans', var(--font-pixelify), monospace;
+}
+
+.font-syne {
+  font-family: var(--font-syne), sans-serif;
+}
+
+.font-playfair {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.font-anton {
+  font-family: var(--font-anton), IMPACT, sans-serif;
+}
+
+.font-barlow {
+  font-family: var(--font-barlow-condensed), sans-serif;
 }
 
 .font-mono {
@@ -73,10 +110,10 @@
   --secondary-foreground: #18181b;
   --muted: #f4f4f6;
   --muted-foreground: #52525b;
-  --primary: #10b981;
+  --primary: #18181b;
   --primary-foreground: #ffffff;
   --border: rgba(0, 0, 0, 0.08);
-  --accent: #10b981;
+  --accent: #18181b;
 }
 
 .dark {
@@ -88,10 +125,10 @@
   --secondary-foreground: #fafafa;
   --muted: #1e1e24;
   --muted-foreground: #a1a1aa;
-  --primary: #10b981;
+  --primary: #fafafa;
   --primary-foreground: #000000;
   --border: rgba(255, 255, 255, 0.08);
-  --accent: #22c55e;
+  --accent: #fafafa;
 }
 
 body {
@@ -101,13 +138,13 @@ body {
   font-weight: 350;
   letter-spacing: -0.01em;
   overflow-x: clip;
-  selection-background-color: #22c55e;
-  selection-color: #000;
+  selection-background-color: #18181b;
+  selection-color: #ffffff;
 }
 
 ::selection {
-  background: #22c55e;
-  color: #000000;
+  background: #18181b;
+  color: #ffffff;
 }
 
 /* Subtle architectural grid - clean and understated */
@@ -134,46 +171,23 @@ body {
 }
 
 .tactile-border-hover:hover {
-  border-color: rgba(16, 185, 129, 0.3);
-  background-color: rgba(16, 185, 129, 0.02);
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
-/* Clean minimalist scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-  border-radius: 2px;
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: #27272a;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
-}
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+/* Completely hide scrollbars across all browsers while retaining smooth scroll */
+html,
+body,
+* {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
 }
 
-/* MagicUI Animated Theme Toggler View Transitions */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-::view-transition-image-pair(root) {
-  isolation: isolate;
-}
-::view-transition-old(root) {
-  z-index: 1;
-}
-::view-transition-new(root) {
-  z-index: 999;
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 @media (any-hover: hover) and (any-pointer: fine) {

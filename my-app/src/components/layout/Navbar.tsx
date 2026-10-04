@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { sound } from "@/lib/sound";
 import { RESUME_DATA } from "@/lib/data";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,19 +21,19 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 font-mono text-xs transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 font-mono text-xs transition-all duration-300 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-md border-b border-border py-3.5 shadow-xs"
-          : "bg-transparent py-6"
+          ? "opacity-100 pointer-events-auto translate-y-0 bg-background/85 backdrop-blur-md border-b border-border py-3 shadow-xs"
+          : "opacity-0 pointer-events-none -translate-y-2 py-3"
       }`}
     >
-      <div className="max-w-4xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-6 pl-24 sm:pl-28 flex items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className={`font-bold tracking-tight transition-colors text-sm ${
             scrolled
-              ? "text-foreground hover:text-emerald-500"
-              : "text-zinc-900 dark:text-white hover:text-emerald-500 dark:hover:text-emerald-400 drop-shadow-xs dark:drop-shadow-sm"
+              ? "text-foreground hover:opacity-75"
+              : "text-zinc-900 dark:text-white hover:opacity-75 drop-shadow-xs dark:drop-shadow-sm"
           }`}
         >
           {RESUME_DATA.profile.name}
@@ -66,26 +65,6 @@ export function Navbar() {
             Projects
           </button>
           <button
-            onClick={() => scrollTo("education")}
-            className={`hidden sm:inline-block transition-colors ${
-              scrolled
-                ? "hover:text-foreground"
-                : "hover:text-zinc-950 dark:hover:text-white drop-shadow-xs dark:drop-shadow-sm"
-            }`}
-          >
-            Education
-          </button>
-          <button
-            onClick={() => scrollTo("skills")}
-            className={`hidden sm:inline-block transition-colors ${
-              scrolled
-                ? "hover:text-foreground"
-                : "hover:text-zinc-950 dark:hover:text-white drop-shadow-xs dark:drop-shadow-sm"
-            }`}
-          >
-            Skills
-          </button>
-          <button
             onClick={() => scrollTo("contact")}
             className={`px-3.5 py-1.5 rounded-full transition-colors text-xs font-semibold border ${
               scrolled
@@ -95,15 +74,6 @@ export function Navbar() {
           >
             Contact
           </button>
-
-          {/* Animated Theme Toggler */}
-          <ThemeToggle
-            className={`size-8 rounded-full border transition-all flex items-center justify-center [&_svg]:size-3.5 cursor-pointer shadow-xs ${
-              scrolled
-                ? "border-border bg-card/80 hover:bg-muted text-foreground"
-                : "border-zinc-300/80 dark:border-white/20 bg-white/80 dark:bg-black/60 hover:bg-zinc-100 dark:hover:bg-black/80 text-zinc-800 dark:text-white backdrop-blur-md shadow-sm"
-            }`}
-          />
         </nav>
       </div>
     </header>

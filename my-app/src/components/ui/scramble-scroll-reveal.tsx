@@ -1,109 +1,122 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import React, { useRef, useMemo } from "react";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*~<>?/{}[]=+§ΔΩΨЖ";
+const FONT_STYLES_BY_WORD: Record<string, string> = {
+  I: "font-playfair italic font-normal tracking-wide text-zinc-300 dark:text-zinc-200",
+  BUILD: "font-anton font-normal uppercase tracking-wider text-zinc-100 dark:text-white",
+  AUTONOMOUS: "font-syne font-extrabold uppercase tracking-tight text-emerald-400",
+  SYSTEMS: "font-pixelta font-normal uppercase tracking-wide text-emerald-400",
+  THAT: "font-barlow font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-300",
+  BRIDGE: "font-anton font-normal uppercase tracking-wider text-zinc-200 dark:text-white",
+  HUMAN: "font-playfair italic font-normal text-emerald-400",
+  INTENT: "font-pixelify font-bold uppercase tracking-widest text-emerald-400",
+  WITH: "font-playfair italic font-light text-zinc-400 dark:text-zinc-300",
+  AGENTIC: "font-syne font-extrabold uppercase tracking-tight text-emerald-400",
+  INTELLIGENCE: "font-mono font-bold uppercase tracking-tighter text-emerald-400",
+  AND: "font-barlow font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-300",
+  EFFORTLESS: "font-anton font-normal uppercase tracking-wider text-zinc-100 dark:text-white",
+  AUTOMATION: "font-pixelta font-normal uppercase tracking-wider text-emerald-400",
+};
 
-interface ScrambleWordProps {
-  word: string;
-  index: number;
-  totalWords: number;
-  progress: number;
+const INDIE_FONT_CYCLES = [
+  "font-playfair italic font-normal",
+  "font-anton font-normal uppercase tracking-wider",
+  "font-syne font-bold uppercase tracking-tight",
+  "font-pixelta font-normal uppercase tracking-wide",
+  "font-mono font-semibold uppercase tracking-tight",
+  "font-barlow font-bold uppercase tracking-widest",
+];
+
+interface ScrambleCharProps {
+  char: string;
+  charIndex: number;
+  totalChars: number;
+  scrollYProgress: MotionValue<number>;
   isAccent?: boolean;
+  fontStyle?: string;
 }
 
-function ScrambleWord({
-  word,
-  index,
-  totalWords,
-  progress,
+function ScrambleChar({
+  char,
+  charIndex,
+  totalChars,
+  scrollYProgress,
   isAccent = false,
-}: ScrambleWordProps) {
-  // Stagger start and end for each word across scroll 0.05 -> 0.90
-  const start = 0.08 + (index / totalWords) * 0.72;
-  const end = start + 0.12;
+  fontStyle = "font-sans font-light",
+}: ScrambleCharProps) {
+  // Stagger timing across scroll progress range (0.04 -> 0.62)
+  // All letters finish flying into place by ~62% scroll progress for a fast, fluid experience
+  const start = 0.04 + (charIndex / totalChars) * 0.44;
+  const end = start + 0.14;
 
-  // Compute normalized progress for this specific word (0 = fully scrambled/submerged, 1 = fully surfaced & resolved)
-  const wordProgress = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+  // Wide 3D scatter offsets so letters are completely unarranged & floating like cereals in a bowl before scroll
+  const { initialX, initialY, initialRotate, initialRotateX } = useMemo(() => {
+    const angle = (charIndex / totalChars) * Math.PI * 6 + (charIndex % 5) * 1.1;
+    const radius = 65 + ((charIndex * 31) % 170); // 65px to 235px wide scatter radius
+    const initialX = Math.cos(angle) * radius + (charIndex % 2 === 0 ? 30 : -30);
+    const initialY = Math.sin(angle) * (radius * 0.6) + (charIndex % 3 === 0 ? -40 : 40);
+    const initialRotate = ((charIndex * 19) % 52) - 26; // -26deg to +26deg
+    const initialRotateX = ((charIndex * 23) % 36) - 18; // -18deg to +18deg
 
-  // Generate scrambled text
-  const [displayText, setDisplayText] = useState(word);
+    return { initialX, initialY, initialRotate, initialRotateX };
+  }, [charIndex, totalChars]);
 
-  useEffect(() => {
-    if (wordProgress >= 1) {
-      setDisplayText(word);
-      return;
-    }
+  // Framer Motion transforms mapped with 4 keyframes [0, start, end, 1]
+  const x = useTransform(scrollYProgress, [0, start, end, 1], [initialX, initialX, 0, 0]);
+  const y = useTransform(scrollYProgress, [0, start, end, 1], [initialY, initialY, 0, 0]);
+  const rotate = useTransform(scrollYProgress, [0, start, end, 1], [initialRotate, initialRotate, 0, 0]);
+  const rotateX = useTransform(scrollYProgress, [0, start, end, 1], [initialRotateX, initialRotateX, 0, 0]);
+  const scale = useTransform(scrollYProgress, [0, start, end, 1], [0.88, 0.88, 1, 1]);
 
-    if (wordProgress <= 0) {
-      // Pre-scroll: scrambled glyphs
-      let scramble = "";
-      for (let i = 0; i < word.length; i++) {
-        // Keep punctuation, scramble letters
-        if (/[^a-zA-Z0-9]/.test(word[i])) {
-          scramble += word[i];
-        } else {
-          const charCode = (word.charCodeAt(i) + index * 7) % GLYPHS.length;
-          scramble += GLYPHS[charCode];
-        }
-      }
-      setDisplayText(scramble);
-      return;
-    }
+  // Blurry silhouette effect melting into crisp sharp letters
+  const opacity = useTransform(scrollYProgress, [0, start, end, 1], [0.35, 0.35, 1, 1]);
+  const filter = useTransform(
+    scrollYProgress,
+    [0, start, end, 1],
+    ["blur(12px)", "blur(12px)", "blur(0px)", "blur(0px)"]
+  );
 
-    // Active scrambling transition as progress moves from 0 to 1
-    const resolvedCharCount = Math.floor(wordProgress * word.length);
-    let current = "";
-    for (let i = 0; i < word.length; i++) {
-      if (i < resolvedCharCount) {
-        current += word[i];
-      } else if (/[^a-zA-Z0-9]/.test(word[i])) {
-        current += word[i];
-      } else {
-        const randIndex = Math.floor(Math.random() * GLYPHS.length);
-        current += GLYPHS[randIndex];
-      }
-    }
-    setDisplayText(current);
-  }, [wordProgress, word, index]);
-
-  // Visual surfacing & rearranging calculations:
-  // Submerged state: blur 14px, translate-y 50px, rotate, scale 0.85, opacity 0.15
-  // Surfaced state: blur 0px, translate-y 0px, rotate 0deg, scale 1, opacity 1
-  const blur = (1 - wordProgress) * 14;
-  const translateY = (1 - wordProgress) * 55;
-  const rotateX = (1 - wordProgress) * 35;
-  const rotateZ = (1 - wordProgress) * (index % 2 === 0 ? 6 : -6);
-  const scale = 0.85 + wordProgress * 0.15;
-  const opacity = 0.12 + wordProgress * 0.88;
+  const accentGlow = useTransform(
+    scrollYProgress,
+    [0, start, end, 1],
+    [
+      "drop-shadow(0px 0px 6px rgba(16,185,129,0.2))",
+      "drop-shadow(0px 0px 6px rgba(16,185,129,0.2))",
+      "drop-shadow(0px 0px 22px rgba(16,185,129,0.55))",
+      "drop-shadow(0px 0px 22px rgba(16,185,129,0.55))",
+    ]
+  );
 
   return (
-    <span
-      className="inline-block relative px-1 sm:px-2 md:px-3 py-1 select-none will-change-transform"
+    <motion.span
       style={{
-        transform: `perspective(800px) translateY(${translateY}px) rotateX(${rotateX}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
-        filter: `blur(${blur}px)`,
+        x,
+        y,
+        rotate,
+        rotateX,
+        scale,
         opacity,
-        transition: "transform 0.05s ease-out, filter 0.05s ease-out, opacity 0.05s ease-out",
+        filter,
+        perspective: 1000,
       }}
+      className="inline-block relative select-none will-change-transform px-[0.03em]"
     >
-      <span
+      <motion.span
+        style={isAccent ? { filter: accentGlow } : undefined}
         className={cn(
-          "transition-colors duration-300 font-extrabold tracking-tighter uppercase",
+          "inline-block transition-colors duration-300",
+          fontStyle,
           isAccent
-            ? wordProgress >= 0.85
-              ? "text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_25px_rgba(16,185,129,0.5)]"
-              : "text-emerald-600/60 dark:text-emerald-500/60"
-            : wordProgress >= 0.85
-            ? "text-zinc-950 dark:text-white"
-            : "text-zinc-500 dark:text-zinc-500"
+            ? "text-emerald-400"
+            : "text-zinc-900 dark:text-white"
         )}
       >
-        {displayText}
-      </span>
-    </span>
+        {char}
+      </motion.span>
+    </motion.span>
   );
 }
 
@@ -118,93 +131,109 @@ export interface ScrambleScrollRevealProps {
 export function ScrambleScrollReveal({
   text = "I ARCHITECT AUTONOMOUS AI SYSTEMS & RESILIENT WORKFLOWS THAT BRIDGE INTENT WITH EFFORTLESS AUTOMATION.",
   accentWords = ["AUTONOMOUS", "AI", "SYSTEMS", "WORKFLOWS", "AUTOMATION", "INTENT"],
-  eyebrow = "Vision & Ambition",
+  eyebrow = "Vision & Core Ambition",
   className,
   containerClassName,
 }: ScrambleScrollRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setScrollProgress(latest);
-  });
+  // Smooth MotionValues for eyebrow and background radial glow driven directly by scroll
+  const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.35, 0.85]);
+  const eyebrowOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
+  const eyebrowY = useTransform(scrollYProgress, [0, 0.3], [12, 0]);
+  const progressHintOpacity = useTransform(scrollYProgress, [0.85, 0.95], [0.6, 0]);
 
   const words = text.split(/\s+/).filter(Boolean);
-  const normalizedAccents = new Set(
-    accentWords.map((w) => w.toUpperCase().replace(/[^A-Z0-9]/g, ""))
+  const normalizedAccents = useMemo(
+    () => new Set(accentWords.map((w) => w.toUpperCase().replace(/[^A-Z0-9]/g, ""))),
+    [accentWords]
   );
+
+  // Deconstruct sentence into words containing indexed characters with artistic indie fonts
+  const { wordsWithCharIndices, totalChars } = useMemo(() => {
+    let globalCharCount = 0;
+    const wordObjs = words.map((word, wordIdx) => {
+      const clean = word.toUpperCase().replace(/[^A-Z0-9]/g, "");
+      const isAccent = normalizedAccents.has(clean);
+      const fontStyle =
+        FONT_STYLES_BY_WORD[clean] || INDIE_FONT_CYCLES[wordIdx % INDIE_FONT_CYCLES.length];
+
+      const chars = word.split("").map((char) => {
+        const idx = globalCharCount++;
+        return { char, index: idx, isAccent, fontStyle };
+      });
+      return { word, isAccent, fontStyle, chars };
+    });
+    return { wordsWithCharIndices: wordObjs, totalChars: globalCharCount };
+  }, [words, normalizedAccents]);
 
   return (
     <div
       ref={containerRef}
-      className={cn("relative h-[250vh] w-full", containerClassName)}
+      className={cn("relative h-[200vh] w-full", containerClassName)}
     >
       {/* Sticky Fullscreen Presentation Window */}
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-8 md:px-12 pointer-events-none select-none">
-        {/* Subtle Ambient Radial Glow */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-700 flex items-center justify-center z-0"
-          style={{
-            opacity: 0.3 + scrollProgress * 0.7,
-          }}
+        {/* Ambient Glow */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none flex items-center justify-center z-0"
+          style={{ opacity: glowOpacity }}
         >
-          <div className="w-[600px] h-[600px] rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 blur-[120px]" />
-        </div>
+          <div className="w-[650px] h-[650px] rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 blur-[130px]" />
+        </motion.div>
 
-        <div className="relative z-10 w-full max-w-[90vw] lg:max-w-[82vw] mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8 pointer-events-auto">
+        <div className="relative z-10 w-full max-w-[92vw] lg:max-w-[85vw] mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8 pointer-events-auto">
           {/* Eyebrow Tag */}
           {eyebrow && (
-            <div
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-black/80 border border-zinc-300 dark:border-white/15 backdrop-blur-md text-[11px] sm:text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold tracking-widest uppercase shadow-sm transition-all duration-300"
+            <motion.div
               style={{
-                opacity: Math.min(1, 0.4 + scrollProgress * 1.5),
-                transform: `translateY(${(1 - Math.min(1, scrollProgress * 2)) * 15}px)`,
+                opacity: eyebrowOpacity,
+                y: eyebrowY,
               }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-black/80 border border-zinc-300 dark:border-white/15 backdrop-blur-md text-[11px] sm:text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold tracking-widest uppercase shadow-sm"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>{eyebrow}</span>
-            </div>
+            </motion.div>
           )}
 
-          {/* Monumental Giant Words Container Covering ~75%+ of the Screen */}
+          {/* Letter-by-Letter Words Container with Artistic Indie Fonts */}
           <div
             className={cn(
-              "w-full flex flex-wrap items-center justify-center text-center font-pixelta text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.2vw] leading-[1.05] sm:leading-[1.02] tracking-tight",
+              "w-full flex flex-wrap items-center justify-center text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.15] sm:leading-[1.1] tracking-tight gap-x-[0.34em] gap-y-[0.12em]",
               className
             )}
           >
-            {words.map((word, i) => {
-              const clean = word.toUpperCase().replace(/[^A-Z0-9]/g, "");
-              const isAccent = normalizedAccents.has(clean);
-
-              return (
-                <ScrambleWord
-                  key={`${word}-${i}`}
-                  word={word}
-                  index={i}
-                  totalWords={words.length}
-                  progress={scrollProgress}
-                  isAccent={isAccent}
-                />
-              );
-            })}
+            {wordsWithCharIndices.map((wordObj, wordIdx) => (
+              <span key={`word-${wordIdx}`} className="inline-flex whitespace-nowrap">
+                {wordObj.chars.map((charObj) => (
+                  <ScrambleChar
+                    key={`char-${charObj.index}`}
+                    char={charObj.char}
+                    charIndex={charObj.index}
+                    totalChars={totalChars}
+                    scrollYProgress={scrollYProgress}
+                    isAccent={charObj.isAccent}
+                    fontStyle={charObj.fontStyle}
+                  />
+                ))}
+              </span>
+            ))}
           </div>
 
-          {/* Bottom Progress Hint */}
-          <div
-            className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-muted-foreground tracking-widest uppercase transition-opacity duration-300 pt-2"
-            style={{
-              opacity: scrollProgress > 0.92 ? 0 : 0.6,
-            }}
+          {/* Scroll Progress Hint */}
+          <motion.div
+            style={{ opacity: progressHintOpacity }}
+            className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-muted-foreground tracking-widest uppercase pt-2"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 animate-ping" />
-            <span>Scroll to decrypt vision</span>
-          </div>
+            <span>Scroll to assemble vision</span>
+          </motion.div>
         </div>
       </div>
     </div>
@@ -212,3 +241,7 @@ export function ScrambleScrollReveal({
 }
 
 export default ScrambleScrollReveal;
+
+
+
+

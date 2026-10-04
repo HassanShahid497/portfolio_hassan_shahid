@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { HeroParallaxSample } from "./HeroParallaxSample";
+import { StaticDesktopHero } from "./StaticDesktopHero";
 
 export function HeroSection() {
-  return <HeroParallaxSample />;
+  return <StaticDesktopHero />;
 }
+

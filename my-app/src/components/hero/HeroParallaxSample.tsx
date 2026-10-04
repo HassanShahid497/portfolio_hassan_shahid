@@ -56,10 +56,14 @@ export function HeroParallaxSample() {
             height={22}
             cx={1}
             cy={1}
-            cr={1}
+            cr={0.9}
+            interactive={true}
+            flowRadius={150}
+            flowIntensity={1.2}
+            waveAnimation={true}
             className={cn(
-              "fill-slate-500/40 dark:fill-slate-400/30",
               "[mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]",
+              "[-webkit-mask-image:radial-gradient(ellipse_65%_75%_at_50%_45%,white,transparent_90%)]",
             )}
           />
 
@@ -94,7 +98,7 @@ export function HeroParallaxSample() {
           <div className="w-full max-w-[215px] space-y-3.5 text-left pt-1 pb-4 pointer-events-auto">
             {/* Education Credential Pill */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/85 dark:bg-black/75 border border-black/10 dark:border-white/20 backdrop-blur-md text-[10.5px] text-zinc-800 dark:text-zinc-300 font-[family-name:system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] shadow-md w-fit transition-colors duration-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-800 dark:bg-zinc-200 animate-pulse shrink-0" />
               <span className="truncate">BS Software Engineering-ITU (3.67)</span>
             </div>
 
@@ -161,7 +165,7 @@ export function HeroParallaxSample() {
               onClick={() => scrollTo("contact")}
               className="h-11 px-3.5 flex-1 rounded-full bg-zinc-950 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-100 dark:text-black text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-black/20 dark:shadow-black/40 transition-all active:scale-95 cursor-pointer whitespace-nowrap"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-white dark:bg-black shrink-0" />
               <span>Get in Touch</span>
             </button>
 
@@ -188,10 +192,14 @@ export function HeroParallaxSample() {
             height={24}
             cx={1}
             cy={1}
-            cr={1}
+            cr={0.9}
+            interactive={true}
+            flowRadius={170}
+            flowIntensity={1.3}
+            waveAnimation={true}
             className={cn(
-              "fill-slate-500/40 dark:fill-slate-400/35",
               "[mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,white,transparent_90%)]",
+              "[-webkit-mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,white,transparent_90%)]",
             )}
           />
 
@@ -222,8 +230,8 @@ export function HeroParallaxSample() {
         <div className="relative z-30 w-full max-w-7xl mx-auto px-6 sm:px-10 h-full flex flex-col justify-between pb-8 sm:pb-10 lg:pb-12 pointer-events-none">
           {/* UPPER-MID LEFT: Status Badge + Bio Caption + Social Icons */}
           <div className="pt-[210px] md:pt-[220px] lg:pt-[225px] max-w-xs sm:max-w-sm pointer-events-auto space-y-3 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-black/60 border border-zinc-300/80 dark:border-white/15 backdrop-blur-md text-xs text-emerald-600 dark:text-emerald-400 font-mono shadow-md transition-colors">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-black/60 border border-zinc-300/80 dark:border-white/15 backdrop-blur-md text-xs text-zinc-800 dark:text-zinc-200 font-mono font-medium shadow-md transition-colors">
+              <span className="w-2 h-2 rounded-full bg-zinc-800 dark:bg-zinc-200 animate-pulse" />
               <span>BS Software Engineering • ITU (3.67)</span>
             </div>
 

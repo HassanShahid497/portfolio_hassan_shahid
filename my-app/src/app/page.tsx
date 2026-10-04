@@ -1,57 +1,54 @@
 "use client";
 
 import React from "react";
-import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/hero/HeroSection";
+import { StaggeredMenu } from "@/components/ui/StaggeredMenu";
 import { ExperienceSection } from "@/components/experience/ExperienceSection";
 import { ProjectsSection } from "@/components/projects/ProjectsSection";
-import { EducationSection } from "@/components/education/EducationSection";
-import { SkillsSection } from "@/components/skills/SkillsSection";
 import { ContactSection } from "@/components/contact/ContactSection";
 import { RESUME_DATA } from "@/lib/data";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import { PortfolioDock } from "@/components/layout/PortfolioDock";
-import { ScrambleScrollReveal } from "@/components/ui/scramble-scroll-reveal";
-import { DotPattern } from "@/components/ui/dot-pattern";
+import { Footer } from "@/components/layout/Footer";
 import { cn } from "@/lib/utils";
+
+const menuItems = [
+  { label: "Home", ariaLabel: "Go to hero section", link: "#hero" },
+  { label: "Experience", ariaLabel: "View work experience", link: "#experience" },
+  { label: "Projects", ariaLabel: "View featured projects", link: "#projects" },
+  { label: "Contact", ariaLabel: "Get in touch with Hassan", link: "#contact" },
+];
+
+const socialItems = [
+  { label: "Twitter", link: RESUME_DATA.profile.twitter },
+  { label: "LinkedIn", link: RESUME_DATA.profile.linkedin },
+  { label: "GitHub", link: RESUME_DATA.profile.github },
+  { label: "Email", link: `mailto:${RESUME_DATA.profile.email}` },
+];
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-emerald-500 selection:text-black pb-28 sm:pb-20">
-      {/* Global Interactive Flow Motion Dot Pattern */}
-      <DotPattern
-        width={24}
-        height={24}
-        cx={1}
-        cy={1}
-        cr={0.9}
-        interactive={true}
-        flowRadius={170}
-        flowIntensity={1.3}
-        waveAnimation={true}
-        className={cn(
-          "fixed inset-0 h-full w-full pointer-events-none z-0",
-        )}
-      />
+    <main className="relative min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-zinc-900 selection:text-white">
 
       <SmoothCursor />
-      {/* Floating MagicUI Dock Navigation */}
-      <PortfolioDock />
 
-      {/* Top Navbar */}
-      <Navbar />
+      {/* React Bits StaggeredMenu pinned on the top left of the page */}
+      <StaggeredMenu
+        position="left"
+        isFixed={true}
+        items={menuItems}
+        socialItems={socialItems}
+        displaySocials={true}
+        displayItemNumbering={true}
+        menuButtonColor="#111"
+        openMenuButtonColor="#111"
+        changeMenuColorOnOpen={true}
+        colors={["#18181b", "#27272a", "#10b981"]}
+        accentColor="#10b981"
+      />
 
-      {/* Hero: Identity, ITU Credentials, Bio, and Quick Links */}
+      {/* Hero: Figma Poster Design with Hanging Phone & Tactile Collage */}
       <HeroSection />
-
-      {/* Monumental Scramble Scroll Reveal: Scrambled & blurred pre-scroll, surfacing and rearranging on scroll */}
-      <section id="vision" className="relative z-10">
-        <ScrambleScrollReveal
-          eyebrow="Vision & Core Ambition"
-          text="I BUILD AUTONOMOUS SYSTEMS THAT BRIDGE HUMAN INTENT WITH AGENTIC INTELLIGENCE AND EFFORTLESS AUTOMATION."
-          accentWords={["AUTONOMOUS", "SYSTEMS", "HUMAN", "AGENTIC", "INTELLIGENCE", "AUTOMATION"]}
-        />
-      </section>
 
       {/* Experience: AI Labs (Discord Moderator & Twitter/X Manager) */}
       <div className="relative z-10">
@@ -63,37 +60,13 @@ export default function Home() {
         <ProjectsSection />
       </div>
 
-      {/* Education: Information Technology University, 3.67 CGPA, Coursework */}
-      <div className="relative z-10">
-        <EducationSection />
-      </div>
-
-      {/* Skills & Hobbies: Technical Matrix and Personal Interests */}
-      <div className="relative z-10">
-        <SkillsSection />
-      </div>
-
       {/* Contact: Direct Email, Phone, Location & Minimal Form */}
       <div className="relative z-10">
         <ContactSection />
       </div>
 
-      {/* Clean Modern Footer */}
-      <footer className="relative z-10 bg-card/40 py-12 font-mono text-xs text-muted-foreground">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-foreground">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span className="font-bold">{RESUME_DATA.profile.name}</span>
-            <span className="text-zinc-400 dark:text-zinc-600">/</span>
-            <span className="text-muted-foreground">Software Engineering @ ITU</span>
-          </div>
-
-          <div className="flex items-center gap-6 text-[11px] text-muted-foreground">
-            <span>{RESUME_DATA.profile.location}</span>
-            <span>{new Date().getFullYear()}</span>
-          </div>
-        </div>
-      </footer>
+      {/* Mobbin-style Signature Footer */}
+      <Footer />
     </main>
   );
 }

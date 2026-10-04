@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono, Barlow_Condensed, Anton } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono, Barlow_Condensed, Anton, Syne, Playfair_Display } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 
 const pixelta = localFont({
   src: "./fonts/Pixelta.ttf",
@@ -24,6 +23,12 @@ const pixelifySans = localFont({
     },
   ],
   variable: "--font-pixelify",
+  display: "swap",
+});
+
+const beauRivage = localFont({
+  src: "./fonts/BeauRivage-Regular.ttf",
+  variable: "--font-beau-rivage",
   display: "swap",
 });
 
@@ -60,6 +65,21 @@ const anton = Anton({
   display: "swap",
 });
 
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["400", "700", "800"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Hassan Shahid | Software Engineering Student @ ITU | AI Automation",
   description:
@@ -79,8 +99,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
-  colorScheme: "dark light",
+  themeColor: "#fbfbfd",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -93,17 +113,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} ${pixelta.variable} ${pixelifySans.variable} h-full antialiased selection:bg-emerald-500 selection:text-black`}
-      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${barlowCondensed.variable} ${anton.variable} ${syne.variable} ${playfair.variable} ${pixelta.variable} ${pixelifySans.variable} ${beauRivage.variable} h-full antialiased selection:bg-zinc-900 selection:text-white`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-        >
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

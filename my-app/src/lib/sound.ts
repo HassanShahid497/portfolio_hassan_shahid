@@ -163,6 +163,34 @@ class SoundEngine {
       // ignore
     }
   }
+
+  // Vintage telephone off-hook switch & dial chirp
+  public playPhonePick() {
+    if (this.isMuted) return;
+    const ctx = this.initCtx();
+    if (!ctx || !this.masterGain) return;
+
+    try {
+      const t = ctx.currentTime;
+      this.playClick(600);
+
+      [350, 440].forEach((freq) => {
+        if (!ctx || !this.masterGain) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, t + 0.04);
+        gain.gain.setValueAtTime(0.1, t + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(t + 0.04);
+        osc.stop(t + 0.3);
+      });
+    } catch {
+      // ignore
+    }
+  }
 }
 
 export const sound = new SoundEngine();
