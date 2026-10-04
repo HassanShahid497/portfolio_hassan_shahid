@@ -73,8 +73,7 @@ export function StaticDesktopHero() {
   };
 
   return (
-    <section
-      id="hero"
+    <div
       ref={containerRef}
       className="relative w-full h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden bg-[#24120e] select-none"
       aria-label="Portfolio Hero Section - Hassan Shahid"
@@ -122,7 +121,7 @@ export function StaticDesktopHero() {
           Get in Touch
         </span>
       </button>
-    </section>
+    </div>
   );
 }
 
