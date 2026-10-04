@@ -2,21 +2,20 @@
 
 import React from "react";
 import { StaticDesktopHero } from "./StaticDesktopHero";
-import { MobileHero } from "./MobileHero";
+import { HeroParallaxSample } from "./HeroParallaxSample";
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative w-full" aria-label="Hero Section">
-      {/* Mobile (< md): Previous sleek animated hero tailored for mobile screens */}
-      <div className="block md:hidden">
-        <MobileHero />
+    <>
+      {/* Mobile: default original HeroParallaxSample */}
+      <div className="block sm:hidden">
+        <HeroParallaxSample />
       </div>
 
-      {/* Desktop (>= md): New full-screen Figma 1920x1080 room scene */}
-      <div className="hidden md:block">
+      {/* Desktop: StaticDesktopHero */}
+      <div className="hidden sm:block">
         <StaticDesktopHero />
       </div>
-    </section>
+    </>
   );
 }
-
